@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIVAG_BACKEND", "SIVAG_BACKEND\SIVAG_BACKEND.csproj", "{F31039D1-2F2D-47EF-90F8-7C4837AA91EF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F31039D1-2F2D-47EF-90F8-7C4837AA91EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F31039D1-2F2D-47EF-90F8-7C4837AA91EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F31039D1-2F2D-47EF-90F8-7C4837AA91EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F31039D1-2F2D-47EF-90F8-7C4837AA91EF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {323309C4-05FF-4ACB-B0EB-71645B636EE4}
+	EndGlobalSection
+EndGlobal
