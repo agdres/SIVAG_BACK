@@ -2,6 +2,22 @@
 {
     public class PersonasDomain
     {
+        public virtual MunicipiosDomain IdMunicipioNavigation { get; set; }
+        public virtual Regimen_FiscalesDomain IdRegimenFiscalNavigation { get; set; }
+        public virtual Tipos_DocumentosDomain IdTipoDocumentoNavigation { get; set; }
+        public virtual ICollection<EmpresasDomain> Empresas { get; set; }
+        public virtual ICollection<Personas_ResponsabilidadesDomain> PersonasResponsabilidades { get; set; }
+        public virtual ICollection<Sucursales_PersonasDomain> SucursalesPersonas { get; set; }
+        public virtual ICollection<Usuarios_ClientesDomain> UsuariosClientes { get; set; }
+
+        public Persona()
+        {
+            Empresas = new HashSet<EmpresasDomain>();
+            PersonasResponsabilidades = new HashSet<Personas_ResponsabilidadesDomain>();
+            SucursalesPersonas = new HashSet<Sucursales_PersonasDomain>();
+            UsuariosClientes = new HashSet<Usuarios_ClientesDomain>();
+        }
+
         public int Persona { get; set; }
         public int ID_Tipo_Documento { get; set; }
         public int ID_Municipio { get; set; }

@@ -2,6 +2,11 @@
 {
     public class RegistrosDomain
     {
+        public virtual ComponentesDomain IdComponenteNavigation { get; set; }
+        public virtual EventosDomain IdEventoNavigation { get; set; }
+        public virtual Usuarios_ClientesDomain IdUsuarioClienteNavigation { get; set; }
+        public virtual UsuariosDomain IdUsuarioNavigation { get; set; }
+
         public int Registro { get; set; }
         public int ID_Evento { get; set; }
         public int ID_Usuario { get; set; }

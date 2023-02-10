@@ -2,6 +2,8 @@
 {
     public class Parametrizaciones_SucursalesDomain
     {
+        public virtual SucursalesDomain IdSucursalNavigation { get; set; }
+
         public int Parametrizacion_Sucursal { get; set; }
         public int ID_Sucursal { get; set; }
         public string? Prefijo_Solicitudes { get; set; }

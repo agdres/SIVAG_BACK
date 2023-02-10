@@ -2,6 +2,19 @@
 {
     public class EmpleadosDomain
     {
+        public virtual BodegasDomain IdBodegaNavigation { get; set; }
+        public virtual GenerosDomain IdGeneroNavigation { get; set; }
+        public virtual MunicipiosDomain IdMunicipioExpedicionNavigation { get; set; }
+        public virtual MunicipiosDomain IdMunicipioNacimientoNavigation { get; set; }
+        public virtual SucursalesDomain IdSucursalNavigation { get; set; }
+        public virtual Tipos_DocumentosDomain IdTipoDocumentoNavigation { get; set; }
+        public virtual ICollection<UsuariosDomain> Usuarios { get; set; }
+
+        public EmpleadosDomain()
+        {
+            Usuarios = new HashSet<UsuariosDomain>();
+        }
+
         public int Empleado { get; set; }
         public int ID_Sucursal { get; set; }
         public int ID_Municipio_Nacimiento { get; set; }

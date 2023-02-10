@@ -2,6 +2,8 @@
 {
     public class Configuraciones_DIANDomain
     {
+        public virtual EmpresasDomain IdEmpresaNavigation { get; set; }
+
         public int Configuracion_DIAN { get; set; }
         public int ID_Empresa { get; set; }
         public string? Codigo_Software { get; set; }

@@ -2,6 +2,9 @@
 {
     public class Configuraciones_EmpresasDomain
     {
+        public virtual EmpresasDomain IdEmpresaNavigation { get; set; }
+
+
         public int Configuracion_Empresa { get; set; }
         public int ID_Empresa { get; set; }
         public string? Fecha_Inicio { get; set; }

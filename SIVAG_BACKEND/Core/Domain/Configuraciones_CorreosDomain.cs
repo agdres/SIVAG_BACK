@@ -2,6 +2,8 @@
 {
     public class Configuraciones_CorreosDomain
     {
+        public virtual SucursalesDomain IdSucursalNavigation { get; set; }
+
         public int Configuracion_Correo { get; set; }
         public int ID_Sucursal { get; set; }
         public string? Nombre { get; set; }

@@ -1,7 +1,12 @@
-﻿namespace SIVAG_BACKEND.Core.Domain
+﻿using System.Data;
+
+namespace SIVAG_BACKEND.Core.Domain
 {
     public class PermisosDomain
     {
+        public virtual ComponentesDomain IdComponenteNavigation { get; set; }
+        public virtual RolesDomain IdRolNavigation { get; set; }
+
         public int Permiso { get; set; }
         public int ID_Rol { get; set; }
         public int ID_Componente { get; set; }

@@ -2,6 +2,9 @@
 {
     public class Parametrizaciones_BodegasDomain
     {
+        public virtual BodegasDomain IdBodegaNavigation { get; set; }
+
+
         public int Parametrizacion_Bodega { get; set; }
         public int ID_Bodega { get; set; }
         public bool INV_Inicial { get; set; }

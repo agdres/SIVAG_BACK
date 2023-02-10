@@ -2,6 +2,9 @@
 {
     public class Sucursales_PersonasDomain
     {
+        public virtual PersonasDomain IdPersonaNavigation { get; set; }
+        public virtual SucursalesDomain IdSucursalNavigation { get; set; }
+
         public int Sucursal_Persona { get; set; }
         public int ID_Sucursal { get; set; }
         public int ID_Persona { get; set; }

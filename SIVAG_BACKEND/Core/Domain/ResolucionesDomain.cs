@@ -2,6 +2,8 @@
 {
     public class ResolucionesDomain
     {
+        public virtual SucursalesDomain IdSucursalNavigation { get; set; }
+
         public int Resolucion { get; set; }
         public int ID_Sucursal { get; set; }
         public string? Autorizacion { get; set; }
