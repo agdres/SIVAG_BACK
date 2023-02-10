@@ -3,13 +3,13 @@
     public class PaisesDomain
     {
         public virtual ICollection<DepartamentosDomain> Departamentos { get; set; }
-        public virtual ICollection<IdiomasDomain> Idiomas { get; set; }
+        public virtual ICollection<Paises_IdiomasDomain> Idiomas_Paises { get; set; }
         public virtual ICollection<MonedasDomain> Moneda { get; set; }
 
         public PaisesDomain()
         {
             Departamentos = new HashSet<DepartamentosDomain>();
-            Idiomas = new HashSet<IdiomasDomain>();
+            Idiomas_Paises = new HashSet<Paises_IdiomasDomain>();
             Moneda = new HashSet<MonedasDomain>();
         }
 

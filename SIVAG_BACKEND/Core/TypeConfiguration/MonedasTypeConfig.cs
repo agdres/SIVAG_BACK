@@ -10,25 +10,26 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
         {
             builder.ToTable("Monedas");
 
-            builder.HasKey(x => x.Moneda);
+            builder.HasKey(e => e.Moneda)
+                    .HasName("PK__Monedas__C0B652C77FEA9548");
 
-            builder.Property(x => x.ID_Pais)
-                .IsRequired();
-
-            builder.Property(x => x.Descripcion)
+            builder.Property(e => e.Descripcion)
                 .HasMaxLength(50)
-                .IsRequired();
+                .IsUnicode(false);
 
-            builder.Property(x => x.Simbolo)
+            builder.Property(e => e.ID_Pais).HasColumnName("ID_Pais");
+
+            builder.Property(e => e.Simbolo)
                 .HasMaxLength(50)
-                .IsRequired();
+                .IsUnicode(false);
 
-            builder.Property(x => x.Estado)
-                .IsRequired();
+            builder.Property(e => e.Estado).HasColumnName("Estado");
 
-            builder.HasOne(x => x.Pais)
-                .WithMany(x => x.Moneda)
-                .HasForeignKey(x => x.ID_Pais);
+
+            builder.HasOne(d => d.IdPaisNavigation)
+                .WithMany(p => p.Moneda)
+                .HasForeignKey(d => d.ID_Pais)
+                .HasConstraintName("FK__Monedas__Estado__3E52440B");
         }
     }
 }

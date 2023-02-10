@@ -8,12 +8,24 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Tipos_DocumentosDomain> builder)
         {
             builder.ToTable("Tipos_Documentos");
-            builder.HasKey(x => x.Tipo_Documento);
 
-            builder.Property(x => x.Tipo_Documento).HasColumnName("Tipo_Documento").ValueGeneratedNever();
-            builder.Property(x => x.Descripcion).HasColumnName("Descripcion").HasMaxLength(50).IsRequired();
-            builder.Property(x => x.Abreviatura).HasColumnName("Abreviatura").HasMaxLength(20).IsRequired();
-            builder.Property(x => x.Estado).HasColumnName("Estado").HasDefaultValue(false).IsRequired();
+            builder.HasKey(e => e.Tipo_Documento)
+                   .HasName("PK__Tipos_Do__D5044915670BA329");
+
+
+            builder.Property(e => e.Tipo_Documento)
+                .ValueGeneratedNever()
+                .HasColumnName("Tipo_Documento");
+
+            builder.Property(e => e.Abreviatura)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+
+            builder.Property(e => e.Descripcion)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+
+            builder.Property(e=> e.Estado);
         }
     }
 }

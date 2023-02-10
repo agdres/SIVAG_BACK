@@ -12,5 +12,6 @@
         public int Consecutivo_Pedido { get; set; }
         public string? Trazlado_Prefijo { get; set; }
         public int Trazlado_Consecutivo { get; set; }
+        public bool Estado { get; set; }
     }
 }

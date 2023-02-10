@@ -9,12 +9,22 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
         public void Configure(EntityTypeBuilder<Responsabilidades_FiscalesDomain> builder)
         {
             builder.ToTable("Responsabilidades_Fiscales");
-            builder.HasKey(x => x.Responsabilidad_Fiscal);
-            builder.Property(x => x.Responsabilidad_Fiscal).HasColumnName("Responsabilidad_Fiscal").IsRequired();
-            builder.Property(x => x.Descripcion).HasColumnName("Descripcion").HasMaxLength(10);
-            builder.Property(x => x.Codigo).HasColumnName("Codigo").HasMaxLength(200);
-            builder.Property(x => x.Estado).HasColumnName("Estado");
+
+            builder.HasKey(e => e.Responsabilidad_Fiscal)
+                   .HasName("PK__Responsa__2EBF635EF46045D9");
+
+
+            builder.Property(e => e.Codigo)
+                .HasMaxLength(200)
+                .IsUnicode(false);
+
+            builder.Property(e => e.Descripcion)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+
+            builder.Property(e => e.Estado);
+
         }
-    
+
     }
 }

@@ -9,12 +9,27 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
         public void Configure(EntityTypeBuilder<PaisesDomain> builder)
         {
             builder.ToTable("Paises");
-            builder.HasKey(p => p.Pais);
-            builder.Property(p => p.Pais).HasColumnName("Pais").ValueGeneratedOnAdd();
-            builder.Property(p => p.Descripcion).HasColumnName("Descripcion").HasMaxLength(50);
-            builder.Property(p => p.Alfa_2).HasColumnName("Alfa_2").HasMaxLength(100);
-            builder.Property(p => p.Alfa_3).HasColumnName("Alfa_3").HasMaxLength(100);
-            builder.Property(p => p.Estado).HasColumnName("Estado");
+
+
+            builder.HasKey(e => e.Pais)
+                    .HasName("PK__Paises__A15FFF7CEBE1CF56");
+
+            builder.Property(e => e.Alfa_2)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("Alfa_2");
+
+            builder.Property(e => e.Alfa_3)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("Alfa_3");
+
+            builder.Property(e => e.Descripcion)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+
+            builder.Property(e => e.Estado).HasColumnName("Estado");
+
         }
     }
 }

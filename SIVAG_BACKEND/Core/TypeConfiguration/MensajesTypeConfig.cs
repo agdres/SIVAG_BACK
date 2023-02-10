@@ -10,26 +10,18 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
         public void Configure(EntityTypeBuilder<MensajesDomain> builder)
         {
             builder.ToTable("Mensajes");
-            builder.HasKey(x => x.Mensaje);
 
-            builder.Property(x => x.Mensaje)
-                .HasColumnName("Mensaje")
-                .ValueGeneratedOnAdd()
-                .IsRequired();
+            builder.HasKey(e => e.Mensaje)
+                .HasName("PK__Mensajes__217DDC4601301B46");
 
-            builder.Property(x => x.Titulo)
+            builder.Property(e => e.Descripcion).HasColumnName("Descripcion").IsUnicode(false);
+
+            builder.Property(e => e.Titulo)
                 .HasColumnName("Titulo")
                 .HasMaxLength(50)
-                .IsRequired();
+                .IsUnicode(false);
 
-            builder.Property(x => x.Descripcion)
-                .HasColumnName("Descripción")
-                .HasMaxLength(int.MaxValue)
-                .IsRequired();
-
-            builder.Property(x => x.Estado)
-                .HasColumnName("Estado")
-                .IsRequired();
+            builder.Property(e => e.Estado).HasColumnName("Estado");
         }
     }
 }
