@@ -22,6 +22,10 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
                 .HasMaxLength(100)
                 .IsUnicode(false);
 
+            builder.Property(e => e.Codigo)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+
             builder.Property(e => e.ID_Pais).HasColumnName("ID_Pais");
 
             builder.Property(e => e.Estado);

@@ -15,11 +15,11 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
 
 
             builder.Property(e => e.Codigo)
-                .HasMaxLength(200)
+                .HasMaxLength(10)
                 .IsUnicode(false);
 
             builder.Property(e => e.Descripcion)
-                .HasMaxLength(10)
+                .HasMaxLength(200)
                 .IsUnicode(false);
 
             builder.Property(e => e.Estado);

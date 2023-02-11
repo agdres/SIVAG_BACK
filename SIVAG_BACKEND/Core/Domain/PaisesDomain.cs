@@ -17,6 +17,7 @@
         public string? Descripcion { get; set; }
         public string? Alfa_2 { get; set; }
         public string? Alfa_3 { get; set; }
+        public string? Codigo { get; set; }
         public bool Estado { get; set; }
     }
 }

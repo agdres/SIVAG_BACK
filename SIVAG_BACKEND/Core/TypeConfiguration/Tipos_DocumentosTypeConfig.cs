@@ -22,7 +22,7 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
                 .IsUnicode(false);
 
             builder.Property(e => e.Descripcion)
-                .HasMaxLength(50)
+                .HasMaxLength(250)
                 .IsUnicode(false);
 
             builder.Property(e=> e.Estado);
