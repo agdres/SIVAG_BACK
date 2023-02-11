@@ -10,7 +10,7 @@
         public virtual ICollection<Sucursales_PersonasDomain> SucursalesPersonas { get; set; }
         public virtual ICollection<Usuarios_ClientesDomain> UsuariosClientes { get; set; }
 
-        public Persona()
+        public PersonasDomain()
         {
             Empresas = new HashSet<EmpresasDomain>();
             PersonasResponsabilidades = new HashSet<Personas_ResponsabilidadesDomain>();

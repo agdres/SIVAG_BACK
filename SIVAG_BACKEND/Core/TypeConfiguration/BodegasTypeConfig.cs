@@ -4,14 +4,23 @@ using SIVAG_BACKEND.Core.Domain;
 
 namespace SIVAG_BACKEND.Core.TypeConfiguration
 {
-    public class BodegasTypeConfig : IEntityTypeConfiguration<BodegasDomain>
+
+    public abstract class BodegasTypeConfiguration<TBase> : IEntityTypeConfiguration<TBase>
+        where TBase : BodegasDomain
     {
-        public void Configure(EntityTypeBuilder<BodegasDomain> builder)
+        public virtual void Configure(EntityTypeBuilder<TBase> entityTypeBuilder)
+        {
+            //Base Configuration
+        }
+    }
+
+    public class BodegasTypeConfig : BodegasTypeConfiguration<BodegasDomain>
+    {
+        public override void Configure(EntityTypeBuilder<BodegasDomain> builder)
         {
             builder.ToTable("Bodegas");
 
-            builder.HasKey(e => e.Bodega)
-                   .HasName("PK__Bodegas__8EC23213C03ED125");
+            builder.HasKey(e => e.Bodega);
 
             builder.Property(e => e.Correo)
                 .HasMaxLength(250)
@@ -53,6 +62,8 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
                 .WithMany(p => p.Bodegas)
                 .HasForeignKey(d => d.ID_Municipio)
                 .HasConstraintName("FK__Bodegas__ID_Muni__76969D2E");
+
+            base.Configure(builder);
         }
     }
 }
