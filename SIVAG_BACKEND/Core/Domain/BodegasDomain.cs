@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Data;
 
 namespace SIVAG_BACKEND.Core.Domain
 {
@@ -17,7 +18,6 @@ namespace SIVAG_BACKEND.Core.Domain
             ParametrizacionesBodegas = new HashSet<Parametrizaciones_BodegasDomain>();
             Roles = new HashSet<RolesDomain>();
         }
-
 
         public int Bodega { get; set; }
         public int ID_Empresa { get; set; }

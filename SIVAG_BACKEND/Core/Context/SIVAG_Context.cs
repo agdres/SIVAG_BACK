@@ -20,46 +20,45 @@ namespace SIVAG_BACKEND.Core.Context
         {
         }
 
-        public virtual DbSet<BodegasTypeConfig> Bodegas { get; set; }
-        public virtual DbSet<ComponentesTypeConfig> Componentes { get; set; }
-        public virtual DbSet<Configuraciones_CorreosTypeConfig> ConfiguracionesCorreos { get; set; }
-        public virtual DbSet<Configuraciones_DIANTypeConfig> ConfiguracionesDians { get; set; }
-        public virtual DbSet<Configuraciones_EmpresasTypeConfig> ConfiguracionesEmpresas { get; set; }
-        public virtual DbSet<DepartamentosTypeConfig> Departamentos { get; set; }
-        public virtual DbSet<EmpleadosTypeConfig> Empleados { get; set; }
-        public virtual DbSet<EmpresasTypeConfig> Empresas { get; set; }
-        public virtual DbSet<ErroresTypeConfig> Errores { get; set; }
-        public virtual DbSet<EventosTypeConfig> Eventos { get; set; }
-        public virtual DbSet<GenerosTypeConfig> Generos { get; set; }
-        public virtual DbSet<IdiomasTypeConfig> Idiomas { get; set; }
-        public virtual DbSet<ImpuestosTypeConfig> Impuestos { get; set; }
-        public virtual DbSet<MensajesTypeConfig> Mensajes { get; set; }
-        public virtual DbSet<MonedasTypeConfig> Monedas { get; set; }
-        public virtual DbSet<MunicipiosTypeConfig> Municipios { get; set; }
-        public virtual DbSet<Paises_IdiomasTypeConfig> PaisesIdiosmas { get; set; }
-        public virtual DbSet<PaisesTypeConfig> Paises { get; set; }
-        public virtual DbSet<Parametrizaciones_BodegasTypeConfig> ParametrizacionesBodegas { get; set; }
-        public virtual DbSet<Parametrizaciones_SucursalesTypeConfig> ParametrizacionesSucursales { get; set; }
-        public virtual DbSet<PermisosTypeConfig> Permisos { get; set; }
-        public virtual DbSet<PersonasTypeConfig> Personas { get; set; }
-        public virtual DbSet<Personas_ResponsabilidadesTypeConfig> PersonasResponsabilidades { get; set; }
-        public virtual DbSet<Regimen_FiscalesTypeConfig> RegimenFiscales { get; set; }
-        public virtual DbSet<RegistrosTypeConfig> Registros { get; set; }
-        public virtual DbSet<ResolucionesTypeConfig> Resoluciones { get; set; }
-        public virtual DbSet<Responsabilidades_FiscalesTypeConfig> ResponsabilidadesFiscales { get; set; }
-        public virtual DbSet<RolesTypeConfig> Roles { get; set; }
-        public virtual DbSet<SucursalesTypeConfig> Sucursales { get; set; }
-        public virtual DbSet<Sucursales_PersonasTypeConfig> SucursalesPersonas { get; set; }
-        public virtual DbSet<Tarifas_ImpuestosTypeConfig> TarifasImpuestos { get; set; }
-        public virtual DbSet<Tipos_DocumentosTypeConfig> TiposDocumentos { get; set; }
-        public virtual DbSet<UsuariosTypeConfig> Usuarios { get; set; }
-        public virtual DbSet<Usuarios_ClientesTypeConfig> UsuariosClientes { get; set; }
+        public virtual DbSet<BodegasDomain> Bodegas { get; set; }
+        public virtual DbSet<ComponentesDomain> Componentes { get; set; }
+        public virtual DbSet<Configuraciones_CorreosDomain> ConfiguracionesCorreos { get; set; }
+        public virtual DbSet<Configuraciones_DIANDomain> ConfiguracionesDians { get; set; }
+        public virtual DbSet<Configuraciones_EmpresasDomain> ConfiguracionesEmpresas { get; set; }
+        public virtual DbSet<DepartamentosDomain> Departamentos { get; set; }
+        public virtual DbSet<EmpleadosDomain> Empleados { get; set; }
+        public virtual DbSet<EmpresasDomain> Empresas { get; set; }
+        public virtual DbSet<ErroresDomain> Errores { get; set; }
+        public virtual DbSet<EventosDomain> Eventos { get; set; }
+        public virtual DbSet<GenerosDomain> Generos { get; set; }
+        public virtual DbSet<IdiomasDomain> Idiomas { get; set; }
+        public virtual DbSet<ImpuestosDomain> Impuestos { get; set; }
+        public virtual DbSet<MensajesDomain> Mensajes { get; set; }
+        public virtual DbSet<MonedasDomain> Monedas { get; set; }
+        public virtual DbSet<MunicipiosDomain> Municipios { get; set; }
+        public virtual DbSet<Paises_IdiomasDomain> PaisesIdiosmas { get; set; }
+        public virtual DbSet<PaisesDomain> Paises { get; set; }
+        public virtual DbSet<Parametrizaciones_BodegasDomain> ParametrizacionesBodegas { get; set; }
+        public virtual DbSet<Parametrizaciones_SucursalesDomain> ParametrizacionesSucursales { get; set; }
+        public virtual DbSet<PermisosDomain> Permisos { get; set; }
+        public virtual DbSet<PersonasDomain> Personas { get; set; }
+        public virtual DbSet<Personas_ResponsabilidadesDomain> PersonasResponsabilidades { get; set; }
+        public virtual DbSet<Regimen_FiscalesDomain> RegimenFiscales { get; set; }
+        public virtual DbSet<RegistrosDomain> Registros { get; set; }
+        public virtual DbSet<ResolucionesDomain> Resoluciones { get; set; }
+        public virtual DbSet<Responsabilidades_FiscalesDomain> ResponsabilidadesFiscales { get; set; }
+        public virtual DbSet<RolesDomain> Roles { get; set; }
+        public virtual DbSet<SucursalesDomain> Sucursales { get; set; }
+        public virtual DbSet<Sucursales_PersonasDomain> SucursalesPersonas { get; set; }
+        public virtual DbSet<Tarifas_ImpuestosDomain> TarifasImpuestos { get; set; }
+        public virtual DbSet<Tipos_DocumentosDomain> TiposDocumentos { get; set; }
+        public virtual DbSet<UsuariosDomain> Usuarios { get; set; }
+        public virtual DbSet<Usuarios_ClientesDomain> UsuariosClientes { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            //modelBuilder.ApplyConfiguration(new BodegasTypeConfig());
+            modelBuilder.ApplyConfiguration(new BodegasTypeConfig());
             modelBuilder.ApplyConfiguration(new ComponentesTypeConfig());
             modelBuilder.ApplyConfiguration(new Configuraciones_CorreosTypeConfig());
             modelBuilder.ApplyConfiguration(new Configuraciones_DIANTypeConfig());
@@ -94,9 +93,10 @@ namespace SIVAG_BACKEND.Core.Context
             modelBuilder.ApplyConfiguration(new UsuariosTypeConfig());
             modelBuilder.ApplyConfiguration(new Usuarios_ClientesTypeConfig());
 
-            //modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
+            OnModelCreatingPartial(modelBuilder);
+    
         }
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
     }
 
