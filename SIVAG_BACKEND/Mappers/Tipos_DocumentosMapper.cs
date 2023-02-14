@@ -5,7 +5,7 @@ namespace SIVAG_BACKEND.Mappers
 {
     public static class Tipos_DocumentosMapper
     {
-        public static Tipos_DocumentosDTO ToTipos_DocumentosDto(this Tipos_DocumentosDomain tiposDocumentos)
+        public static Tipos_DocumentosDTO ToTipos_DocumentosDTO(this Tipos_DocumentosDomain tiposDocumentos)
         {
             return new Tipos_DocumentosDTO
             {

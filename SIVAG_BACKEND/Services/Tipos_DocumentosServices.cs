@@ -19,7 +19,7 @@ namespace SIVAG_BACKEND.Services
         public async Task<List<Tipos_DocumentosDTO>> GetAll_TipoDocumentos()
         {
             var TipDocs = await this._Context.TiposDocumentos.ToListAsync();
-            var Res = TipDocs.Select(Tipos_DocumentosMapper.ToTipos_DocumentosDto).ToList();
+            var Res = TipDocs.Select(Tipos_DocumentosMapper.ToTipos_DocumentosDTO).ToList();
             return Res;
         }
 
