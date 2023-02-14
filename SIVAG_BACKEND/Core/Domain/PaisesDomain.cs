@@ -4,13 +4,15 @@
     {
         public virtual ICollection<DepartamentosDomain> Departamentos { get; set; }
         public virtual ICollection<Paises_IdiomasDomain> Idiomas_Paises { get; set; }
-        public virtual ICollection<MonedasDomain> Moneda { get; set; }
+        //public virtual ICollection<MonedasDomain> Moneda { get; set; }
+        public virtual ICollection<Monedas_PaisesDomain> MonedaPais { get; set; }
 
         public PaisesDomain()
         {
             Departamentos = new HashSet<DepartamentosDomain>();
             Idiomas_Paises = new HashSet<Paises_IdiomasDomain>();
-            Moneda = new HashSet<MonedasDomain>();
+            //Moneda = new HashSet<MonedasDomain>();
+            MonedaPais= new HashSet<Monedas_PaisesDomain>();
         }
 
         public int Pais { get; set; }

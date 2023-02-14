@@ -17,7 +17,7 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-            builder.Property(e => e.ID_Pais).HasColumnName("ID_Pais");
+            //builder.Property(e => e.ID_Pais).HasColumnName("ID_Pais");
 
             builder.Property(e => e.Simbolo)
                 .HasMaxLength(50)
@@ -30,10 +30,10 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
             builder.Property(e => e.Estado).HasColumnName("Estado");
 
 
-            builder.HasOne(d => d.IdPaisNavigation)
+          /*  builder.HasOne(d => d.IdPaisNavigation)
                 .WithMany(p => p.Moneda)
                 .HasForeignKey(d => d.ID_Pais)
-                .HasConstraintName("FK__Monedas__Estado__3E52440B");
+                .HasConstraintName("FK__Monedas__Estado__3E52440B");*/
         }
     }
 }

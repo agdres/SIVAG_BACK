@@ -30,10 +30,13 @@ namespace SIVAG_BACKEND.Core.Context
         public virtual DbSet<EmpresasDomain> Empresas { get; set; }
         public virtual DbSet<ErroresDomain> Errores { get; set; }
         public virtual DbSet<EventosDomain> Eventos { get; set; }
+        public virtual DbSet<Formas_PagoDomain> FormasPago { get; set; }
         public virtual DbSet<GenerosDomain> Generos { get; set; }
         public virtual DbSet<IdiomasDomain> Idiomas { get; set; }
         public virtual DbSet<ImpuestosDomain> Impuestos { get; set; }
+        public virtual DbSet<Medios_PagoDomain> MediosPago { get; set; }
         public virtual DbSet<MensajesDomain> Mensajes { get; set; }
+        public virtual DbSet<Monedas_PaisesDomain> MonedaPais { get; set; }
         public virtual DbSet<MonedasDomain> Monedas { get; set; }
         public virtual DbSet<MunicipiosDomain> Municipios { get; set; }
         public virtual DbSet<Paises_IdiomasDomain> PaisesIdiosmas { get; set; }
@@ -68,10 +71,13 @@ namespace SIVAG_BACKEND.Core.Context
             modelBuilder.ApplyConfiguration(new EmpresasTypeConfig());
             modelBuilder.ApplyConfiguration(new ErroresTypeConfig());
             modelBuilder.ApplyConfiguration(new EventosTypeConfig());
+            modelBuilder.ApplyConfiguration(new Formas_PagoTypeConfig());
             modelBuilder.ApplyConfiguration(new GenerosTypeConfig());
             modelBuilder.ApplyConfiguration(new IdiomasTypeConfig());
             modelBuilder.ApplyConfiguration(new ImpuestosTypeConfig());
+            modelBuilder.ApplyConfiguration(new Medios_PagoTypeConfig());
             modelBuilder.ApplyConfiguration(new MensajesTypeConfig());
+            modelBuilder.ApplyConfiguration(new Monedas_PaisesTypeConfig());
             modelBuilder.ApplyConfiguration(new MonedasTypeConfig());
             modelBuilder.ApplyConfiguration(new MunicipiosTypeConfig());
             modelBuilder.ApplyConfiguration(new Paises_IdiomasTypeConfig());

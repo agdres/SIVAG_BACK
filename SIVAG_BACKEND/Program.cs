@@ -1,17 +1,24 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SIVAG_BACKEND.Core.Context;
+using SIVAG_BACKEND.Interfaces;
+using SIVAG_BACKEND.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 string Conexion = builder.Configuration.GetConnectionString("Conexion");
 builder.Services.AddDbContext<SIVAG_Context>(options => 
-    options.UseSqlServer(Conexion)
+    options.UseSqlServer(Conexion),
+    ServiceLifetime.Scoped
 );
 
 
+// Interfaces
+builder.Services.AddScoped<ITipos_Documentos, Tipos_DocumentosServices>();
 
+
+//
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
