@@ -10,8 +10,7 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
         {
             builder.ToTable("Configuraciones_DIAN");
 
-            builder.HasKey(e => e.Configuracion_DIAN)
-                    .HasName("PK__Configur__A81C0D75877D8D70");
+            builder.HasKey(e => e.Configuracion_DIAN);
 
 builder.Property(e => e.Clave)
                 .HasMaxLength(250)
@@ -35,8 +34,7 @@ builder.Property(e => e.Clave)
 
             builder.HasOne(d => d.IdEmpresaNavigation)
                 .WithMany(p => p.ConfiguracionesDians)
-                .HasForeignKey(d => d.ID_Empresa)
-                .HasConstraintName("FK__Configura__Clave__571DF1D5");
+                .HasForeignKey(d => d.ID_Empresa);
         }
     }
 }

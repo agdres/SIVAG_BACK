@@ -1,35 +1,30 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol.Plugins;
-using SIVAG_BACKEND.Core.Context;
-using SIVAG_BACKEND.Core.Domain;
 using SIVAG_BACKEND.Interfaces;
-using SIVAG_BACKEND.Mappers;
-using SIVAG_BACKEND.Models;
 using SIVAG_BACKEND.Models.API_Response;
+using SIVAG_BACKEND.Models;
 using SIVAG_BACKEND.Models.Enums;
 
 namespace SIVAG_BACKEND.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Tipos_DocumentosController : ControllerBase
+    public class Formas_PagoController : ControllerBase
     {
-        private readonly ITipos_Documentos _TipDoc;
-        public Tipos_DocumentosController(ITipos_Documentos tipDoc) 
+        private readonly IFormas_Pago _FormasPago;
+        public Formas_PagoController(IFormas_Pago formasPago)
         {
-            _TipDoc = tipDoc;
+            _FormasPago = formasPago;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetTipo_Documento()
+        public async Task<IActionResult> GetFormas_Pago()
         {
             try
             {
-                var Res = await this._TipDoc.GetAll();
+                var Res = await this._FormasPago.GetAll();
 
-                return Ok(new API_Resp<List<Tipos_DocumentosDTO>>
+                return Ok(new API_Resp<List<Formas_PagoDTO>>
                 {
                     data = Res,
                     Message = (Res != null ? MensajesResController.Result : MensajesResController.Error_Get),
@@ -44,11 +39,32 @@ namespace SIVAG_BACKEND.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertTipo_Documento(Tipos_DocumentosDTO data)
+        public async Task<IActionResult> InsertFormas_Pago(Formas_PagoDTO data)
         {
             try
             {
-                var Res = await this._TipDoc.Insert(data);
+                var Res = await this._FormasPago.Insert(data);
+                return Ok(new API_Resp<bool>
+                {
+                    data = Res,
+                    Message = (Res != false ? MensajesResController.Result : MensajesResController.Error_Get),
+                    StatusCode = (Res != false ? 200 : 400)
+                });
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateFormas_Pago(Formas_PagoDTO data)
+        {
+            try
+            {
+                var Res = await this._FormasPago.Update(data);
 
                 return Ok(new API_Resp<bool>
                 {
@@ -63,35 +79,14 @@ namespace SIVAG_BACKEND.Controllers
                 throw;
             }
         }
-        
-        [HttpPut]
-        public async Task<IActionResult> UpdateTipo_Documento(Tipos_DocumentosDTO data)
-        {
-            try
-            {
-                var Res = await this._TipDoc.Update(data);
 
-                return Ok(new API_Resp<bool>
-                {
-                    data = Res,
-                    Message = (Res != false ? MensajesResController.Result : MensajesResController.Error_Get),
-                    StatusCode = (Res != false ? 200 : 400)
-                });
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        } 
-        
         [HttpPut]
         [Route("ChangueStatus")]
-        public async Task<IActionResult> ChangeEstatusTipo_Documento(int TipoDocumento)
+        public async Task<IActionResult> ChangeEstatusFormas_Pago(int FormaPago)
         {
             try
             {
-                var Res = await this._TipDoc.ChangeEstatus(TipoDocumento);
+                var Res = await this._FormasPago.ChangeEstatus(FormaPago);
 
                 return Ok(new API_Resp<bool>
                 {

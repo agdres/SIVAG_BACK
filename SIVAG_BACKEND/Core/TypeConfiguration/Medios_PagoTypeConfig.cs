@@ -10,9 +10,9 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
         {
             builder.ToTable("Medios_Pago");
 
-            builder.HasKey(e => e.Medios_Pago);
+            builder.HasKey(e => e.Medio_Pago);
 
-            builder.Property(e => e.Medios_Pago)
+            builder.Property(e => e.Medio_Pago)
                .ValueGeneratedNever();
 
             builder.Property(e => e.Descripcion);

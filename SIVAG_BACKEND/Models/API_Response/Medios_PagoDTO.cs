@@ -2,7 +2,7 @@
 {
     public class Medios_PagoDTO
     {
-        public int Medios_Pago { get; set; }
+        public int Medio_Pago { get; set; }
         public string? Descripcion { get; set; }
         public bool Estado { get; set; }
     }

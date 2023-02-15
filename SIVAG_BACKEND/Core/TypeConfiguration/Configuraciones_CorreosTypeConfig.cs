@@ -10,8 +10,7 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
         {
             builder.ToTable("Configuraciones_Correos");
 
-            builder.HasKey(e => e.Configuracion_Correo)
-                       .HasName("PK__Configur__E5F1702B2C269A88");
+            builder.HasKey(e => e.Configuracion_Correo);
 
             builder.Property(e => e.Cifrado_SSL).HasColumnName("Cifrado_SSL");
 
@@ -37,8 +36,7 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
 
             builder.HasOne(d => d.IdSucursalNavigation)
                 .WithMany(p => p.ConfiguracionesCorreos)
-                .HasForeignKey(d => d.ID_Sucursal)
-                .HasConstraintName("FK__Configura__Cifra__6E01572D");
+                .HasForeignKey(d => d.ID_Sucursal);
         }
     }
 }

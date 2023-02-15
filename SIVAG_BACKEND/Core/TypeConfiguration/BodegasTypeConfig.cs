@@ -46,13 +46,11 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
 
             builder.HasOne(d => d.IdEmpresaNavigation)
                 .WithMany(p => p.Bodegas)
-                .HasForeignKey(d => d.ID_Empresa)
-                .HasConstraintName("FK__Bodegas__Estado__75A278F5");
+                .HasForeignKey(d => d.ID_Empresa);
 
             builder.HasOne(d => d.IdMunicipioNavigation)
                 .WithMany(p => p.Bodegas)
-                .HasForeignKey(d => d.ID_Municipio)
-                .HasConstraintName("FK__Bodegas__ID_Muni__76969D2E");
+                .HasForeignKey(d => d.ID_Municipio);
 
         }
     }

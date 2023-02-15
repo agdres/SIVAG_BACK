@@ -10,8 +10,7 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
         {
             builder.ToTable("Componentes");
 
-            builder.HasKey(e => e.Componente)
-                .HasName("PK__Componen__7DF976EC70B42259");
+            builder.HasKey(e => e.Componente);
 
             builder.Property(e => e.Componente)
                 .ValueGeneratedNever()

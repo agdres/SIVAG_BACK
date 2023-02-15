@@ -1,28 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol;
 using SIVAG_BACKEND.Core.Context;
-using SIVAG_BACKEND.Core.Domain;
 using SIVAG_BACKEND.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using SIVAG_BACKEND.Mappers;
 using SIVAG_BACKEND.Models.API_Response;
 
 namespace SIVAG_BACKEND.Services
 {
-    public class Tipos_DocumentosServices : ITipos_Documentos
+    public class MunicipiosServices : IMunicipios
     {
         private readonly SIVAG_Context _Context;
-        public Tipos_DocumentosServices(SIVAG_Context context)
+        public MunicipiosServices(SIVAG_Context context)
         {
             _Context = context;
         }
 
-        public async Task<List<Tipos_DocumentosDTO>> GetAll()
+        public async Task<List<MunicipiosDTO>> GetAll()
         {
             try
             {
-                var TipDocs = await this._Context.TiposDocumentos.ToListAsync();
-                var Res = TipDocs.Select(Tipos_DocumentosMapper.ToTipos_DocumentosDTO).ToList();
+                var Municipios = await this._Context.Municipios.ToListAsync();
+                var Res = Municipios.Select(MunicipiosMapper.ToMunicipiosDTO).ToList();
                 return Res;
             }
             catch (Exception)
@@ -31,11 +28,11 @@ namespace SIVAG_BACKEND.Services
                 throw;
             }
         }
-        public async Task<bool> Insert(Tipos_DocumentosDTO data)
+        public async Task<bool> Insert(MunicipiosDTO data)
         {
             try
             {
-                await _Context.TiposDocumentos.AddAsync(data.ToTipos_DocumentosDomain());
+                await _Context.Municipios.AddAsync(data.ToMunicipiosDomain());
                 await _Context.SaveChangesAsync();
                 return true;
             }
@@ -45,11 +42,11 @@ namespace SIVAG_BACKEND.Services
             }
         }
 
-        public async Task<bool> Update(Tipos_DocumentosDTO data)
+        public async Task<bool> Update(MunicipiosDTO data)
         {
             try
             {
-                _Context.Entry(data.ToTipos_DocumentosDomain()).State = EntityState.Modified;
+                _Context.Entry(data.ToMunicipiosDomain()).State = EntityState.Modified;
                 await _Context.SaveChangesAsync();
                 return true;
             }
@@ -63,10 +60,10 @@ namespace SIVAG_BACKEND.Services
         {
             try
             {
-                var TipDoc = await this._Context.TiposDocumentos.FindAsync(id);
-                TipDoc.Estado = !TipDoc.Estado;
+                var Municipios = await this._Context.Municipios.FindAsync(id);
+                Municipios.Estado = !Municipios.Estado;
 
-                _Context.Entry(TipDoc).State = EntityState.Modified;
+                _Context.Entry(Municipios).State = EntityState.Modified;
                 await _Context.SaveChangesAsync();
                 return true;
             }
@@ -75,6 +72,5 @@ namespace SIVAG_BACKEND.Services
                 return false;
             }
         }
-
     }
 }

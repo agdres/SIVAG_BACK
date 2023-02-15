@@ -3,8 +3,7 @@ using SIVAG_BACKEND.Models.API_Response;
 
 namespace SIVAG_BACKEND.Interfaces
 {
-    public interface IBodegas : IEntityRep<BodegasDTO>
+    public interface IMonedas : IEntityRep<MonedasDTO>
     {
-
     }
 }

@@ -10,8 +10,7 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
         {
             builder.ToTable("Departamentos");
 
-            builder.HasKey(e => e.Departamento)
-                   .HasName("PK__Departam__71BEBBD69B66FBE9");
+            builder.HasKey(e => e.Departamento);
 
             builder.Property(e => e.Codigo_ISO)
                 .HasMaxLength(20)
@@ -30,10 +29,7 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
 
             builder.Property(e => e.Estado);
 
-            builder.HasOne(d => d.IdPaisNavigation)
-                .WithMany(p => p.Departamentos)
-                .HasForeignKey(d => d.ID_Pais)
-                .HasConstraintName("FK__Departame__Estad__440B1D61");
+            builder.HasOne(d => d.IdPaisNavigation).WithMany(p => p.Departamentos).HasForeignKey(d => d.ID_Pais);
         }
     }
 }

@@ -10,8 +10,7 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
         {
             builder.ToTable("Configuraciones_Empresas");
 
-            builder.HasKey(e => e.Configuracion_Empresa)
-                    .HasName("PK__Configur__FE9242E039C8B39B");
+            builder.HasKey(e => e.Configuracion_Empresa);
 
             builder.Property(e => e.Control_Inventario).HasColumnName("Control_Inventario");
 
@@ -43,10 +42,7 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
 
             builder.Property(e => e.Activacion);
 
-            builder.HasOne(d => d.IdEmpresaNavigation)
-                .WithMany(p => p.ConfiguracionesEmpresas)
-                .HasForeignKey(d => d.ID_Empresa)
-                .HasConstraintName("FK__Configura__Activ__59FA5E80");
+            builder.HasOne(d => d.IdEmpresaNavigation).WithMany(p => p.ConfiguracionesEmpresas).HasForeignKey(d => d.ID_Empresa);
         }
     }
 }

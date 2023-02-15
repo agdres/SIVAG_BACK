@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SIVAG_BACKEND.Core.Context;
 using SIVAG_BACKEND.Interfaces;
+using SIVAG_BACKEND.Interfaces.General;
 using SIVAG_BACKEND.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,8 +14,19 @@ builder.Services.AddDbContext<SIVAG_Context>(options =>
     ServiceLifetime.Scoped
 );
 
+// cors
+builder.Services.AddCors(options => options.AddPolicy("CorsPolicity", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+
 
 // Interfaces
+builder.Services.AddScoped<IBodegas,BodegasServices>();
+builder.Services.AddScoped<IDepartamentos,DepartamentosServices>();
+builder.Services.AddScoped<IFormas_Pago,Formas_PagoServices>();
+builder.Services.AddScoped<IMedios_Pago,Medios_PagoService>();
+builder.Services.AddScoped<IMensajes, MensajesServices>();
+builder.Services.AddScoped<IMonedas,MonedasServices>();
+builder.Services.AddScoped<IMunicipios,MunicipiosServices>();
+builder.Services.AddScoped<IPaises,PaisesServices>();
 builder.Services.AddScoped<ITipos_Documentos, Tipos_DocumentosServices>();
 
 
@@ -32,6 +44,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("CorsPolicity");
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

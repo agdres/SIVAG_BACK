@@ -10,8 +10,7 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
         {
             builder.ToTable("Empleados");
 
-            builder.HasKey(e => e.Empleado)
-                       .HasName("PK__Empleado__5AE93C2E26215E0D");
+            builder.HasKey(e => e.Empleado);
 
             builder.Property(e => e.Correo)
                 .HasMaxLength(250)
@@ -95,35 +94,17 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
 
             builder.Property(e => e.Estado);
 
-            builder.HasOne(d => d.IdBodegaNavigation)
-                .WithMany(p => p.Empleados)
-                .HasForeignKey(d => d.ID_Bodega)
-                .HasConstraintName("FK__Empleados__ID_Bo__7E37BEF6");
+            builder.HasOne(d => d.IdBodegaNavigation).WithMany(p => p.Empleados).HasForeignKey(d => d.ID_Bodega);
 
-            builder.HasOne(d => d.IdGeneroNavigation)
-                .WithMany(p => p.Empleados)
-                .HasForeignKey(d => d.ID_Genero)
-                .HasConstraintName("FK__Empleados__ID_Ge__7F2BE32F");
+            builder.HasOne(d => d.IdGeneroNavigation).WithMany(p => p.Empleados).HasForeignKey(d => d.ID_Genero);
 
-            builder.HasOne(d => d.IdMunicipioExpedicionNavigation)
-                .WithMany(p => p.EmpleadoIdMunicipioExpedicionNavigations)
-                .HasForeignKey(d => d.ID_Municipio_Expedicion)
-                .HasConstraintName("FK__Empleados__ID_Mu__01142BA1");
+            builder.HasOne(d => d.IdMunicipioExpedicionNavigation).WithMany(p => p.EmpleadoIdMunicipioExpedicionNavigations).HasForeignKey(d => d.ID_Municipio_Expedicion);
 
-            builder.HasOne(d => d.IdMunicipioNacimientoNavigation)
-                .WithMany(p => p.EmpleadoIdMunicipioNacimientoNavigations)
-                .HasForeignKey(d => d.ID_Municipio_Nacimiento)
-                .HasConstraintName("FK__Empleados__ID_Mu__7D439ABD");
+            builder.HasOne(d => d.IdMunicipioNacimientoNavigation).WithMany(p => p.EmpleadoIdMunicipioNacimientoNavigations).HasForeignKey(d => d.ID_Municipio_Nacimiento);
 
-            builder.HasOne(d => d.IdSucursalNavigation)
-                .WithMany(p => p.Empleados)
-                .HasForeignKey(d => d.ID_Sucursal)
-                .HasConstraintName("FK__Empleados__Estad__7C4F7684");
+            builder.HasOne(d => d.IdSucursalNavigation).WithMany(p => p.Empleados).HasForeignKey(d => d.ID_Sucursal);
 
-            builder.HasOne(d => d.IdTipoDocumentoNavigation)
-                .WithMany(p => p.Empleados)
-                .HasForeignKey(d => d.ID_Tipo_Documento)
-                .HasConstraintName("FK__Empleados__ID_Ti__00200768");
+            builder.HasOne(d => d.IdTipoDocumentoNavigation).WithMany(p => p.Empleados).HasForeignKey(d => d.ID_Tipo_Documento);
         }
     }
 }

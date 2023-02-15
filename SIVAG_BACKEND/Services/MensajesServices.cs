@@ -1,41 +1,35 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol;
 using SIVAG_BACKEND.Core.Context;
 using SIVAG_BACKEND.Core.Domain;
 using SIVAG_BACKEND.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using SIVAG_BACKEND.Mappers;
-using SIVAG_BACKEND.Models.API_Response;
 
 namespace SIVAG_BACKEND.Services
 {
-    public class Tipos_DocumentosServices : ITipos_Documentos
+    public class MensajesServices : IMensajes
     {
         private readonly SIVAG_Context _Context;
-        public Tipos_DocumentosServices(SIVAG_Context context)
+        public MensajesServices(SIVAG_Context context) 
         {
             _Context = context;
         }
-
-        public async Task<List<Tipos_DocumentosDTO>> GetAll()
+        public async Task<List<MensajesDomain>> GetAll()
         {
             try
             {
-                var TipDocs = await this._Context.TiposDocumentos.ToListAsync();
-                var Res = TipDocs.Select(Tipos_DocumentosMapper.ToTipos_DocumentosDTO).ToList();
-                return Res;
+                var Mensajes = await this._Context.Mensajes.ToListAsync();
+                return Mensajes;
             }
             catch (Exception)
             {
-
-                throw;
+                return null;
             }
         }
-        public async Task<bool> Insert(Tipos_DocumentosDTO data)
+
+        public async Task<bool> Insert(MensajesDomain data)
         {
             try
             {
-                await _Context.TiposDocumentos.AddAsync(data.ToTipos_DocumentosDomain());
+                await _Context.Mensajes.AddAsync(data);
                 await _Context.SaveChangesAsync();
                 return true;
             }
@@ -45,11 +39,11 @@ namespace SIVAG_BACKEND.Services
             }
         }
 
-        public async Task<bool> Update(Tipos_DocumentosDTO data)
+        public async Task<bool> Update(MensajesDomain data)
         {
             try
             {
-                _Context.Entry(data.ToTipos_DocumentosDomain()).State = EntityState.Modified;
+                _Context.Entry(data).State = EntityState.Modified;
                 await _Context.SaveChangesAsync();
                 return true;
             }
@@ -58,15 +52,14 @@ namespace SIVAG_BACKEND.Services
                 return false;
             }
         }
-
         public async Task<bool> ChangeEstatus(int id)
         {
             try
             {
-                var TipDoc = await this._Context.TiposDocumentos.FindAsync(id);
-                TipDoc.Estado = !TipDoc.Estado;
+                var Mensajes = await this._Context.Mensajes.FindAsync(id);
+                Mensajes.Estado = !Mensajes.Estado;
 
-                _Context.Entry(TipDoc).State = EntityState.Modified;
+                _Context.Entry(Mensajes).State = EntityState.Modified;
                 await _Context.SaveChangesAsync();
                 return true;
             }
@@ -75,6 +68,5 @@ namespace SIVAG_BACKEND.Services
                 return false;
             }
         }
-
     }
 }

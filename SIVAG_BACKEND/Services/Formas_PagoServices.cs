@@ -1,28 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol;
 using SIVAG_BACKEND.Core.Context;
-using SIVAG_BACKEND.Core.Domain;
 using SIVAG_BACKEND.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using SIVAG_BACKEND.Mappers;
 using SIVAG_BACKEND.Models.API_Response;
 
 namespace SIVAG_BACKEND.Services
 {
-    public class Tipos_DocumentosServices : ITipos_Documentos
+    public class Formas_PagoServices : IFormas_Pago
     {
         private readonly SIVAG_Context _Context;
-        public Tipos_DocumentosServices(SIVAG_Context context)
+        public Formas_PagoServices(SIVAG_Context context)
         {
             _Context = context;
         }
 
-        public async Task<List<Tipos_DocumentosDTO>> GetAll()
+        public async Task<List<Formas_PagoDTO>> GetAll()
         {
             try
             {
-                var TipDocs = await this._Context.TiposDocumentos.ToListAsync();
-                var Res = TipDocs.Select(Tipos_DocumentosMapper.ToTipos_DocumentosDTO).ToList();
+                var FormasPago = await this._Context.FormasPago.ToListAsync();
+                var Res = FormasPago.Select(Formas_PagoMapper.ToFormas_PagoDTO).ToList();
                 return Res;
             }
             catch (Exception)
@@ -31,11 +28,11 @@ namespace SIVAG_BACKEND.Services
                 throw;
             }
         }
-        public async Task<bool> Insert(Tipos_DocumentosDTO data)
+        public async Task<bool> Insert(Formas_PagoDTO data)
         {
             try
             {
-                await _Context.TiposDocumentos.AddAsync(data.ToTipos_DocumentosDomain());
+                await _Context.FormasPago.AddAsync(data.ToFormas_PagoDomain());
                 await _Context.SaveChangesAsync();
                 return true;
             }
@@ -45,11 +42,11 @@ namespace SIVAG_BACKEND.Services
             }
         }
 
-        public async Task<bool> Update(Tipos_DocumentosDTO data)
+        public async Task<bool> Update(Formas_PagoDTO data)
         {
             try
             {
-                _Context.Entry(data.ToTipos_DocumentosDomain()).State = EntityState.Modified;
+                _Context.Entry(data.ToFormas_PagoDomain()).State = EntityState.Modified;
                 await _Context.SaveChangesAsync();
                 return true;
             }
@@ -63,10 +60,10 @@ namespace SIVAG_BACKEND.Services
         {
             try
             {
-                var TipDoc = await this._Context.TiposDocumentos.FindAsync(id);
-                TipDoc.Estado = !TipDoc.Estado;
+                var FormasPago = await this._Context.FormasPago.FindAsync(id);
+                FormasPago.Estado = !FormasPago.Estado;
 
-                _Context.Entry(TipDoc).State = EntityState.Modified;
+                _Context.Entry(FormasPago).State = EntityState.Modified;
                 await _Context.SaveChangesAsync();
                 return true;
             }
@@ -75,6 +72,5 @@ namespace SIVAG_BACKEND.Services
                 return false;
             }
         }
-
     }
 }
