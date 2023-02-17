@@ -5,5 +5,6 @@ namespace SIVAG_BACKEND.Interfaces
 {
     public interface IMunicipios : IEntityRep<MunicipiosDTO>
     {
+        Task<List<MunicipiosDTO>> GetMunicipiosActivos(int Departamento);
     }
 }

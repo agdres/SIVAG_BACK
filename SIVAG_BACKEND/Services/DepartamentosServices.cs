@@ -24,8 +24,7 @@ namespace SIVAG_BACKEND.Services
             }
             catch (Exception)
             {
-
-                throw;
+                return null;
             }
         }
         public async Task<bool> Insert(DepartamentosDTO data)
@@ -73,5 +72,19 @@ namespace SIVAG_BACKEND.Services
             }
         }
 
+        public async Task<List<DepartamentosDTO>> GetDepartamentosActivos(int Pais)
+        {
+            try
+            {
+                var Departamentos = await this._Context.Departamentos.Where(x => x.ID_Pais == Pais && x.Estado == false).ToListAsync();
+                var Res = Departamentos.Select(DepartamentosMapper.ToDepartamentosDTO).ToList();
+                return Res;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

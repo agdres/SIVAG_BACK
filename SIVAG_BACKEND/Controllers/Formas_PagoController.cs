@@ -81,7 +81,7 @@ namespace SIVAG_BACKEND.Controllers
         }
 
         [HttpPut]
-        [Route("ChangueStatus")]
+        [Route("ChangeStatus")]
         public async Task<IActionResult> ChangeEstatusFormas_Pago(int FormaPago)
         {
             try

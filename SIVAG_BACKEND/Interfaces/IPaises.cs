@@ -6,5 +6,6 @@ namespace SIVAG_BACKEND.Interfaces
 {
     public interface IPaises : IEntityRep<PaisesDTO>
     {
+        Task<List<PaisesDTO>> GetPaisesActivos();
     }
 }

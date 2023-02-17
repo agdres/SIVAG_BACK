@@ -24,10 +24,10 @@ namespace SIVAG_BACKEND.Services
             }
             catch (Exception)
             {
-
-                throw;
+                return null;
             }
         }
+
         public async Task<bool> Insert(MunicipiosDTO data)
         {
             try
@@ -70,6 +70,21 @@ namespace SIVAG_BACKEND.Services
             catch (Exception)
             {
                 return false;
+            }
+        }
+
+        public async Task<List<MunicipiosDTO>> GetMunicipiosActivos(int Departamento)
+        {
+            try
+            {
+                var Municipios = await this._Context.Municipios.Where(x => x.ID_Departamento == Departamento && x.Estado == false).ToListAsync();
+                var Res = Municipios.Select(MunicipiosMapper.ToMunicipiosDTO).ToList();
+                return Res;
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

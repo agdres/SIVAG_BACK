@@ -65,7 +65,7 @@ namespace SIVAG_BACKEND.Controllers
         }
 
         [HttpPut]
-        [Route("ChangueStatus")]
+        [Route("ChangeStatus")]
         public async Task<IActionResult> ChangeEstatusDepartamentos(int Departamento)
         {
             var Res = await this._Departamentos.ChangeEstatus(Departamento);

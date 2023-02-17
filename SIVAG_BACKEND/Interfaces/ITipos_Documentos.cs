@@ -6,7 +6,7 @@ namespace SIVAG_BACKEND.Interfaces
 {
     public interface ITipos_Documentos : IEntityRep<Tipos_DocumentosDTO>
     {
-
+        Task<List<Tipos_DocumentosDTO>> GetTipDocActivos();
     }
 
 }

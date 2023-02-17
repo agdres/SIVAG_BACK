@@ -82,7 +82,7 @@ namespace SIVAG_BACKEND.Controllers
         }
 
         [HttpPut]
-        [Route("ChangueStatus")]
+        [Route("ChangeStatus")]
         public async Task<IActionResult> ChangeEstatusMunicipios(int Municipio)
         {
             try

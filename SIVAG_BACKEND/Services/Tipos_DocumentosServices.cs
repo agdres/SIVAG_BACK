@@ -76,5 +76,19 @@ namespace SIVAG_BACKEND.Services
             }
         }
 
+        public async Task<List<Tipos_DocumentosDTO>> GetTipDocActivos()
+        {
+            try
+            {
+                var TipDocs = await this._Context.TiposDocumentos.Where(x => x.Estado == false).ToListAsync();
+                var Res = TipDocs.Select(Tipos_DocumentosMapper.ToTipos_DocumentosDTO).ToList();
+                return Res;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

@@ -24,8 +24,7 @@ namespace SIVAG_BACKEND.Services
             }
             catch (Exception)
             {
-
-                throw;
+                return null;
             }
         }
         public async Task<bool> Insert(PaisesDTO data)
@@ -70,6 +69,21 @@ namespace SIVAG_BACKEND.Services
             catch (Exception)
             {
                 return false;
+            }
+        }
+
+        public async Task<List<PaisesDTO>> GetPaisesActivos()
+        {
+            try
+            {
+                var Paises = await this._Context.Paises.Where(x => x.Estado == false).ToListAsync();
+                var Res = Paises.Select(PaisesMapper.ToPaisesDTO).ToList();
+                return Res;
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

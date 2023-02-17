@@ -5,5 +5,7 @@ namespace SIVAG_BACKEND.Interfaces
 {
     public interface IDepartamentos:IEntityRep<DepartamentosDTO>
     {
+        Task<List<DepartamentosDTO>> GetDepartamentosActivos(int Pais);
+
     }
 }

@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Plugins;
 using SIVAG_BACKEND.Core.Context;
 using SIVAG_BACKEND.Core.Domain;
+using SIVAG_BACKEND.Hubs;
 using SIVAG_BACKEND.Interfaces;
 using SIVAG_BACKEND.Mappers;
 using SIVAG_BACKEND.Models;
@@ -17,9 +19,29 @@ namespace SIVAG_BACKEND.Controllers
     public class Tipos_DocumentosController : ControllerBase
     {
         private readonly ITipos_Documentos _TipDoc;
-        public Tipos_DocumentosController(ITipos_Documentos tipDoc) 
+        private readonly IHubContext<Hub_Generales> _HubGenerales;
+        public Tipos_DocumentosController
+        (
+            ITipos_Documentos tipDoc,
+            IHubContext<Hub_Generales> hubGenerales
+        ) 
         {
             _TipDoc = tipDoc;
+            _HubGenerales = hubGenerales;
+        }
+
+        private async void GetTipo_Documento_Hub()
+        {
+            try
+            {
+                var Res = await this._TipDoc.GetAll();
+                await this._HubGenerales.Clients.All.SendAsync("GetTipos_Documentos", Res);
+
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         [HttpGet]
@@ -50,6 +72,11 @@ namespace SIVAG_BACKEND.Controllers
             {
                 var Res = await this._TipDoc.Insert(data);
 
+                if (Res)
+                {
+                    GetTipo_Documento_Hub();
+                }
+
                 return Ok(new API_Resp<bool>
                 {
                     data = Res,
@@ -70,7 +97,10 @@ namespace SIVAG_BACKEND.Controllers
             try
             {
                 var Res = await this._TipDoc.Update(data);
-
+                if (Res)
+                {
+                    GetTipo_Documento_Hub();
+                }
                 return Ok(new API_Resp<bool>
                 {
                     data = Res,
@@ -86,13 +116,16 @@ namespace SIVAG_BACKEND.Controllers
         } 
         
         [HttpPut]
-        [Route("ChangueStatus")]
+        [Route("ChangeStatus")]
         public async Task<IActionResult> ChangeEstatusTipo_Documento(int TipoDocumento)
         {
             try
             {
                 var Res = await this._TipDoc.ChangeEstatus(TipoDocumento);
-
+                if (Res)
+                {
+                    GetTipo_Documento_Hub();
+                }
                 return Ok(new API_Resp<bool>
                 {
                     data = Res,

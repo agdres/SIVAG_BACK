@@ -1,12 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SIVAG_BACKEND.Core.Context;
+using SIVAG_BACKEND.Hubs;
 using SIVAG_BACKEND.Interfaces;
 using SIVAG_BACKEND.Interfaces.General;
 using SIVAG_BACKEND.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Usar SignalR
+builder.Services.AddSignalR();
 // Add services to the container.
 string Conexion = builder.Configuration.GetConnectionString("Conexion");
 builder.Services.AddDbContext<SIVAG_Context>(options => 
@@ -29,6 +32,8 @@ builder.Services.AddScoped<IMunicipios,MunicipiosServices>();
 builder.Services.AddScoped<IPaises,PaisesServices>();
 builder.Services.AddScoped<ITipos_Documentos, Tipos_DocumentosServices>();
 
+// Hubs
+builder.Services.AddScoped<Hub_Generales>();
 
 //
 builder.Services.AddControllers();
@@ -49,6 +54,8 @@ app.UseCors("CorsPolicity");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+// Hubs
+app.MapHub<Hub_Generales>("/Generales");
 
 app.MapControllers();
 
