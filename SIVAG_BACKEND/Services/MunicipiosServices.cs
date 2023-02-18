@@ -16,9 +16,14 @@ namespace SIVAG_BACKEND.Services
 
         public async Task<List<MunicipiosDTO>> GetAll()
         {
+            return null;
+        }
+
+        public async Task<List<MunicipiosDTO>> GetAll_Departamentos(int Departamento)
+        {
             try
             {
-                var Municipios = await this._Context.Municipios.ToListAsync();
+                var Municipios = await this._Context.Municipios.Where(x => x.ID_Departamento == Departamento).ToListAsync();
                 var Res = Municipios.Select(MunicipiosMapper.ToMunicipiosDTO).ToList();
                 return Res;
             }

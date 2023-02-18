@@ -1,39 +1,36 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using SIVAG_BACKEND.Hubs;
 using SIVAG_BACKEND.Interfaces;
 using SIVAG_BACKEND.Models.API_Response;
 using SIVAG_BACKEND.Models.Enums;
 using SIVAG_BACKEND.Models;
-using Microsoft.AspNetCore.SignalR;
-using SIVAG_BACKEND.Hubs;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SIVAG_BACKEND.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MunicipiosController : ControllerBase
+    public class Monedas_PaisesController : ControllerBase
     {
-        private IMunicipios _Municipios;
+        private readonly IMonedas_Paises _MonedasPaises;
         private readonly IHubContext<Hub_Generales> _HubGenerales;
-
-        public MunicipiosController
+        public Monedas_PaisesController
         (
-            IMunicipios municipios,
+            IMonedas_Paises monedasPaise,
             IHubContext<Hub_Generales> hubGenerales
         )
         {
-            _Municipios = municipios;
+            _MonedasPaises = monedasPaise;
             _HubGenerales = hubGenerales;
         }
 
-
-        private async void GetMunicipios_Hub(int Departamento)
+        private async void GetMonedas_Paises_Hub(int Pais)
         {
             try
             {
-                var Res = await this._Municipios.GetMunicipiosActivos(Departamento);
-                await this._HubGenerales.Clients.All.SendAsync("GetMunicipios", Res);
+                var Res = await this._MonedasPaises.GetMonedas_PaisesActivos(Pais);
+                await this._HubGenerales.Clients.All.SendAsync("GetMonedas_Paises", Res);
             }
             catch (Exception)
             {
@@ -42,19 +39,18 @@ namespace SIVAG_BACKEND.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GeMunicipios(int Departamento)
+        public async Task<IActionResult> GetMonedas_Paises(int Pais)
         {
             try
             {
-                var Res = await this._Municipios.GetAll_Departamentos(Departamento);
+                var Res = await this._MonedasPaises.GetAll_Pais(Pais);
 
-                return Ok(new API_Resp<List<MunicipiosDTO>>
+                return Ok(new API_Resp<List<Monedas_PaisesDTO>>
                 {
                     data = Res,
                     Message = (Res != null ? MensajesResController.Result : MensajesResController.Error_Get),
                     StatusCode = (Res != null ? 200 : 400)
                 });
-
             }
             catch (Exception)
             {
@@ -64,15 +60,17 @@ namespace SIVAG_BACKEND.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InserMunicipios(MunicipiosDTO data)
+        public async Task<IActionResult> InsertMonedas_Paises(Monedas_PaisesDTO data)
         {
             try
             {
-                var Res = await this._Municipios.Insert(data);
+                var Res = await this._MonedasPaises.Insert(data);
+
                 if (Res)
                 {
-                    GetMunicipios_Hub(data.ID_Departamento);
+                    GetMonedas_Paises_Hub(data.ID_Pais);
                 }
+
                 return Ok(new API_Resp<bool>
                 {
                     data = Res,
@@ -88,14 +86,14 @@ namespace SIVAG_BACKEND.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateMunicipios(MunicipiosDTO data)
+        public async Task<IActionResult> UpdateMonedas_Paises(Monedas_PaisesDTO data)
         {
             try
             {
-                var Res = await this._Municipios.Update(data);
+                var Res = await this._MonedasPaises.Update(data);
                 if (Res)
                 {
-                    GetMunicipios_Hub(data.ID_Departamento);
+                    GetMonedas_Paises_Hub(data.ID_Pais);
                 }
                 return Ok(new API_Resp<bool>
                 {
@@ -113,14 +111,14 @@ namespace SIVAG_BACKEND.Controllers
 
         [HttpPut]
         [Route("ChangeStatus")]
-        public async Task<IActionResult> ChangeEstatusMunicipios(int Municipio, int Departamento)
+        public async Task<IActionResult> ChangeEstatusMonedas_Paises(int MonedasPais, int Pais)
         {
             try
             {
-                var Res = await this._Municipios.ChangeEstatus(Municipio);
+                var Res = await this._MonedasPaises.ChangeEstatus(MonedasPais);
                 if (Res)
                 {
-                    GetMunicipios_Hub(Departamento);
+                    GetMonedas_Paises_Hub(Pais);
                 }
                 return Ok(new API_Resp<bool>
                 {
@@ -137,3 +135,4 @@ namespace SIVAG_BACKEND.Controllers
         }
     }
 }
+

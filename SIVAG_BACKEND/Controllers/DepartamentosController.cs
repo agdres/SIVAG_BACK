@@ -37,11 +37,11 @@ namespace SIVAG_BACKEND.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetDepartamentos()
+        public async Task<IActionResult> GetDepartamentos(int Pais)
         {
             try
             {
-                var Res = await this._Departamentos.GetAll();
+                var Res = await this._Departamentos.GetAll_Pais(Pais);
 
                 return Ok(new API_Resp<List<DepartamentosDTO>>
                 {

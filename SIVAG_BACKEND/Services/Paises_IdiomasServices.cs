@@ -6,37 +6,38 @@ using SIVAG_BACKEND.Models.API_Response;
 
 namespace SIVAG_BACKEND.Services
 {
-    public class DepartamentosServices : IDepartamentos
+    public class Paises_IdiomasServices : IPaises_Idiomas
     {
         private readonly SIVAG_Context _Context;
-        public DepartamentosServices(SIVAG_Context context)
+        public Paises_IdiomasServices(SIVAG_Context context)
         {
             _Context = context;
         }
 
-        public async Task<List<DepartamentosDTO>> GetAll()
+        public async Task<List<Paises_IdiomasDTO>> GetAll()
         {
             return null;
-        }       
-        
-        public async Task<List<DepartamentosDTO>> GetAll_Pais(int Pais)
+        }
+
+        public async Task<List<Paises_IdiomasDTO>> GetAll_Pais(int Pais)
         {
             try
             {
-                var Departamentos = await this._Context.Departamentos.Where(x => x.ID_Pais == Pais).ToListAsync();
-                var Res = Departamentos.Select(DepartamentosMapper.ToDepartamentosDTO).ToList();
+                var PaisesIdiomas = await this._Context.PaisesIdiosmas.Where(x => x.ID_Pais == Pais).ToListAsync();
+                var Res = PaisesIdiomas.Select(Paises_IdiomasMapper.ToPaises_IdiomasDTO).ToList();
                 return Res;
             }
             catch (Exception)
             {
-                return null;
+
+                throw;
             }
         }
-        public async Task<bool> Insert(DepartamentosDTO data)
+        public async Task<bool> Insert(Paises_IdiomasDTO data)
         {
             try
             {
-                await _Context.Departamentos.AddAsync(data.ToDepartamentosDomain());
+                await _Context.PaisesIdiosmas.AddAsync(data.ToPaises_IdiomasDomain());
                 await _Context.SaveChangesAsync();
                 return true;
             }
@@ -46,11 +47,11 @@ namespace SIVAG_BACKEND.Services
             }
         }
 
-        public async Task<bool> Update(DepartamentosDTO data)
+        public async Task<bool> Update(Paises_IdiomasDTO data)
         {
             try
             {
-                _Context.Entry(data.ToDepartamentosDomain()).State = EntityState.Modified;
+                _Context.Entry(data.ToPaises_IdiomasDomain()).State = EntityState.Modified;
                 await _Context.SaveChangesAsync();
                 return true;
             }
@@ -64,10 +65,10 @@ namespace SIVAG_BACKEND.Services
         {
             try
             {
-                var Departamentos = await this._Context.Departamentos.FindAsync(id);
-                Departamentos.Estado = !Departamentos.Estado;
+                var PaisesIdiomas = await this._Context.PaisesIdiosmas.FindAsync(id);
+                PaisesIdiomas.Estado = !PaisesIdiomas.Estado;
 
-                _Context.Entry(Departamentos).State = EntityState.Modified;
+                _Context.Entry(PaisesIdiomas).State = EntityState.Modified;
                 await _Context.SaveChangesAsync();
                 return true;
             }
@@ -77,12 +78,12 @@ namespace SIVAG_BACKEND.Services
             }
         }
 
-        public async Task<List<DepartamentosDTO>> GetDepartamentosActivos(int Pais)
+        public async Task<List<Paises_IdiomasDTO>> GetPaises_IdiomasActivos(int Pais)
         {
             try
             {
-                var Departamentos = await this._Context.Departamentos.Where(x => x.ID_Pais == Pais && x.Estado == false).ToListAsync();
-                var Res = Departamentos.Select(DepartamentosMapper.ToDepartamentosDTO).ToList();
+                var PaisesIdiomas = await this._Context.PaisesIdiosmas.Where(x => x.ID_Pais == Pais && x.Estado == false).ToListAsync();
+                var Res = PaisesIdiomas.Select(Paises_IdiomasMapper.ToPaises_IdiomasDTO).ToList();
                 return Res;
             }
             catch (Exception)

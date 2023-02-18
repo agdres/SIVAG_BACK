@@ -13,6 +13,10 @@ namespace SIVAG_BACKEND.Hubs
         private IDepartamentos _Departamentos;
         private IMunicipios _Municipios;
         private IMonedas _Monedas;
+        private IMonedas_Paises _MonedasPaises;
+        private IPaises_Idiomas _PaisesIdiomas;
+        private IIdiomas _Idiomas;
+        private IGeneros _Generos;
         private IFormas_Pago _FormasPago;
         private IMedios_Pago _MediosPago;
         public Hub_Generales
@@ -22,19 +26,27 @@ namespace SIVAG_BACKEND.Hubs
             IDepartamentos departamentos,
             IMunicipios municipios,
             IMonedas monedas,
+            IPaises_Idiomas paisesIdiomas,
+            IIdiomas idiomas,
+            IMonedas_Paises monedasPaises,
+            IGeneros generos,
             IFormas_Pago formasPago,
             IMedios_Pago mediosPago,
             IMensajes mensajes
         ) 
         {
-            _TiposDocumentos= tiposDocumentos;
+            _TiposDocumentos = tiposDocumentos;
             _Mensajes = mensajes;
-            _Paises= paises;    
-            _Departamentos= departamentos;
-            _Municipios= municipios;
-            _Monedas= monedas;
-            _FormasPago= formasPago;
-            _MediosPago= mediosPago;
+            _Paises = paises;    
+            _Departamentos = departamentos;
+            _Municipios = municipios;
+            _Monedas = monedas;
+            _MonedasPaises = monedasPaises;
+            _Generos = generos;
+            _FormasPago = formasPago;
+            _PaisesIdiomas = paisesIdiomas;
+            _Idiomas = idiomas; 
+            _MediosPago = mediosPago;
         }
 
         #region Consulta Los activos (Esto es para todos los usuarios esten conectados a los cambios del supervisor)
@@ -87,6 +99,34 @@ namespace SIVAG_BACKEND.Hubs
         {
             List<Medios_PagoDTO> MediosPago = await this._MediosPago.GetFormasPagosActivos();
             await Clients.All.SendAsync("GetMedios_Pago", MediosPago);
+        }
+
+
+        public async Task GetMonedas_Paises(int Pais)
+        {
+            List<Monedas_PaisesDTO> MonedasPaises = await this._MonedasPaises.GetMonedas_PaisesActivos(Pais);
+            await Clients.All.SendAsync("GetMonedas_Paises", MonedasPaises);
+        }
+
+
+        public async Task GetIdiomas()
+        {
+            List<IdiomasDTO> Idiomas = await this._Idiomas.GetIdiomasActivos();
+            await Clients.All.SendAsync("GetIdiomas", Idiomas);
+        }
+
+
+        public async Task GetPaises_Idiomas(int Pais)
+        {
+            List<Paises_IdiomasDTO> Idiomas = await this._PaisesIdiomas.GetPaises_IdiomasActivos(Pais);
+            await Clients.All.SendAsync("GetPaises_Idiomas", Idiomas);
+        }
+
+
+        public async Task GetGeneros()
+        {
+            List<GenerosDTO> Generos = await this._Generos.GetGenerosActivos();
+            await Clients.All.SendAsync("GetGeneros", Generos);
         }
         #endregion
     }

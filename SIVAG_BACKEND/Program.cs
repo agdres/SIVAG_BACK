@@ -24,11 +24,15 @@ builder.Services.AddCors(options => options.AddPolicy("CorsPolicity", builder =>
 // Interfaces
 builder.Services.AddScoped<IBodegas,BodegasServices>();
 builder.Services.AddScoped<IDepartamentos,DepartamentosServices>();
+builder.Services.AddScoped<IGeneros,GenerosServices>();
 builder.Services.AddScoped<IFormas_Pago,Formas_PagoServices>();
+builder.Services.AddScoped<IIdiomas,IdiomasServices>();
 builder.Services.AddScoped<IMedios_Pago,Medios_PagoService>();
 builder.Services.AddScoped<IMensajes, MensajesServices>();
+builder.Services.AddScoped<IMonedas_Paises,Monedas_PaisesServices>();
 builder.Services.AddScoped<IMonedas,MonedasServices>();
 builder.Services.AddScoped<IMunicipios,MunicipiosServices>();
+builder.Services.AddScoped<IPaises_Idiomas,Paises_IdiomasServices>();
 builder.Services.AddScoped<IPaises,PaisesServices>();
 builder.Services.AddScoped<ITipos_Documentos, Tipos_DocumentosServices>();
 

@@ -1,39 +1,37 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using SIVAG_BACKEND.Hubs;
 using SIVAG_BACKEND.Interfaces;
 using SIVAG_BACKEND.Models.API_Response;
 using SIVAG_BACKEND.Models.Enums;
 using SIVAG_BACKEND.Models;
-using Microsoft.AspNetCore.SignalR;
-using SIVAG_BACKEND.Hubs;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SIVAG_BACKEND.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MunicipiosController : ControllerBase
+    public class Paises_IdiomasController : ControllerBase
     {
-        private IMunicipios _Municipios;
+        private readonly IPaises_Idiomas _PaisesIdiomas;
         private readonly IHubContext<Hub_Generales> _HubGenerales;
-
-        public MunicipiosController
+        public Paises_IdiomasController
         (
-            IMunicipios municipios,
+            IPaises_Idiomas paisesIdiomas,
             IHubContext<Hub_Generales> hubGenerales
         )
         {
-            _Municipios = municipios;
+            _PaisesIdiomas = paisesIdiomas;
             _HubGenerales = hubGenerales;
         }
 
-
-        private async void GetMunicipios_Hub(int Departamento)
+        private async void GetPaises_Idiomas_Hub(int Pais)
         {
             try
             {
-                var Res = await this._Municipios.GetMunicipiosActivos(Departamento);
-                await this._HubGenerales.Clients.All.SendAsync("GetMunicipios", Res);
+                var Res = await this._PaisesIdiomas.GetPaises_IdiomasActivos(Pais);
+                await this._HubGenerales.Clients.All.SendAsync("GetPaises_Idiomas", Res);
+
             }
             catch (Exception)
             {
@@ -42,19 +40,18 @@ namespace SIVAG_BACKEND.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GeMunicipios(int Departamento)
+        public async Task<IActionResult> GetPaises_Idiomas(int Pais)
         {
             try
             {
-                var Res = await this._Municipios.GetAll_Departamentos(Departamento);
+                var Res = await this._PaisesIdiomas.GetAll_Pais(Pais);
 
-                return Ok(new API_Resp<List<MunicipiosDTO>>
+                return Ok(new API_Resp<List<Paises_IdiomasDTO>>
                 {
                     data = Res,
                     Message = (Res != null ? MensajesResController.Result : MensajesResController.Error_Get),
                     StatusCode = (Res != null ? 200 : 400)
                 });
-
             }
             catch (Exception)
             {
@@ -64,15 +61,17 @@ namespace SIVAG_BACKEND.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InserMunicipios(MunicipiosDTO data)
+        public async Task<IActionResult> InserPaises_Idiomas(Paises_IdiomasDTO data)
         {
             try
             {
-                var Res = await this._Municipios.Insert(data);
+                var Res = await this._PaisesIdiomas.Insert(data);
+
                 if (Res)
                 {
-                    GetMunicipios_Hub(data.ID_Departamento);
+                    GetPaises_Idiomas_Hub(data.ID_Pais);
                 }
+
                 return Ok(new API_Resp<bool>
                 {
                     data = Res,
@@ -88,14 +87,14 @@ namespace SIVAG_BACKEND.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateMunicipios(MunicipiosDTO data)
+        public async Task<IActionResult> UpdatePaises_Idiomas(Paises_IdiomasDTO data)
         {
             try
             {
-                var Res = await this._Municipios.Update(data);
+                var Res = await this._PaisesIdiomas.Update(data);
                 if (Res)
                 {
-                    GetMunicipios_Hub(data.ID_Departamento);
+                    GetPaises_Idiomas_Hub(data.ID_Pais);
                 }
                 return Ok(new API_Resp<bool>
                 {
@@ -113,14 +112,14 @@ namespace SIVAG_BACKEND.Controllers
 
         [HttpPut]
         [Route("ChangeStatus")]
-        public async Task<IActionResult> ChangeEstatusMunicipios(int Municipio, int Departamento)
+        public async Task<IActionResult> ChangeEstatusPaises_Idiomas(int Idioma,int Pais)
         {
             try
             {
-                var Res = await this._Municipios.ChangeEstatus(Municipio);
+                var Res = await this._PaisesIdiomas.ChangeEstatus(Idioma);
                 if (Res)
                 {
-                    GetMunicipios_Hub(Departamento);
+                    GetPaises_Idiomas_Hub(Pais);
                 }
                 return Ok(new API_Resp<bool>
                 {
@@ -135,5 +134,6 @@ namespace SIVAG_BACKEND.Controllers
                 throw;
             }
         }
+
     }
 }

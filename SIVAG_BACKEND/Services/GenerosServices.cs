@@ -6,37 +6,33 @@ using SIVAG_BACKEND.Models.API_Response;
 
 namespace SIVAG_BACKEND.Services
 {
-    public class DepartamentosServices : IDepartamentos
+    public class GenerosServices : IGeneros
     {
         private readonly SIVAG_Context _Context;
-        public DepartamentosServices(SIVAG_Context context)
+        public GenerosServices(SIVAG_Context context)
         {
             _Context = context;
         }
 
-        public async Task<List<DepartamentosDTO>> GetAll()
-        {
-            return null;
-        }       
-        
-        public async Task<List<DepartamentosDTO>> GetAll_Pais(int Pais)
+        public async Task<List<GenerosDTO>> GetAll()
         {
             try
             {
-                var Departamentos = await this._Context.Departamentos.Where(x => x.ID_Pais == Pais).ToListAsync();
-                var Res = Departamentos.Select(DepartamentosMapper.ToDepartamentosDTO).ToList();
+                var TipDocs = await this._Context.Generos.ToListAsync();
+                var Res = TipDocs.Select(GenerosMapper.ToGenerosDTO).ToList();
                 return Res;
             }
             catch (Exception)
             {
-                return null;
+
+                throw;
             }
         }
-        public async Task<bool> Insert(DepartamentosDTO data)
+        public async Task<bool> Insert(GenerosDTO data)
         {
             try
             {
-                await _Context.Departamentos.AddAsync(data.ToDepartamentosDomain());
+                await _Context.Generos.AddAsync(data.ToGenerosDomain());
                 await _Context.SaveChangesAsync();
                 return true;
             }
@@ -46,11 +42,11 @@ namespace SIVAG_BACKEND.Services
             }
         }
 
-        public async Task<bool> Update(DepartamentosDTO data)
+        public async Task<bool> Update(GenerosDTO data)
         {
             try
             {
-                _Context.Entry(data.ToDepartamentosDomain()).State = EntityState.Modified;
+                _Context.Entry(data.ToGenerosDomain()).State = EntityState.Modified;
                 await _Context.SaveChangesAsync();
                 return true;
             }
@@ -64,10 +60,10 @@ namespace SIVAG_BACKEND.Services
         {
             try
             {
-                var Departamentos = await this._Context.Departamentos.FindAsync(id);
-                Departamentos.Estado = !Departamentos.Estado;
+                var Generos = await this._Context.Generos.FindAsync(id);
+                Generos.Estado = !Generos.Estado;
 
-                _Context.Entry(Departamentos).State = EntityState.Modified;
+                _Context.Entry(Generos).State = EntityState.Modified;
                 await _Context.SaveChangesAsync();
                 return true;
             }
@@ -77,12 +73,12 @@ namespace SIVAG_BACKEND.Services
             }
         }
 
-        public async Task<List<DepartamentosDTO>> GetDepartamentosActivos(int Pais)
+        public async Task<List<GenerosDTO>> GetGenerosActivos()
         {
             try
             {
-                var Departamentos = await this._Context.Departamentos.Where(x => x.ID_Pais == Pais && x.Estado == false).ToListAsync();
-                var Res = Departamentos.Select(DepartamentosMapper.ToDepartamentosDTO).ToList();
+                var TipDocs = await this._Context.Generos.Where(x => x.Estado == false).ToListAsync();
+                var Res = TipDocs.Select(GenerosMapper.ToGenerosDTO).ToList();
                 return Res;
             }
             catch (Exception)

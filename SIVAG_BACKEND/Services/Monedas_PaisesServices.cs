@@ -6,37 +6,38 @@ using SIVAG_BACKEND.Models.API_Response;
 
 namespace SIVAG_BACKEND.Services
 {
-    public class DepartamentosServices : IDepartamentos
+    public class Monedas_PaisesServices : IMonedas_Paises
     {
         private readonly SIVAG_Context _Context;
-        public DepartamentosServices(SIVAG_Context context)
+        public Monedas_PaisesServices(SIVAG_Context context)
         {
             _Context = context;
         }
 
-        public async Task<List<DepartamentosDTO>> GetAll()
+        public async Task<List<Monedas_PaisesDTO>> GetAll()
         {
             return null;
-        }       
-        
-        public async Task<List<DepartamentosDTO>> GetAll_Pais(int Pais)
+        }
+
+        public async Task<List<Monedas_PaisesDTO>> GetAll_Pais(int Pais)
         {
             try
             {
-                var Departamentos = await this._Context.Departamentos.Where(x => x.ID_Pais == Pais).ToListAsync();
-                var Res = Departamentos.Select(DepartamentosMapper.ToDepartamentosDTO).ToList();
+                var MonedasPaises = await this._Context.MonedaPais.Where(x => x.ID_Pais ==  Pais).ToListAsync();
+                var Res = MonedasPaises.Select(Monedas_PaisesMapper.ToMonedas_PaisesDTO).ToList();
                 return Res;
             }
             catch (Exception)
             {
-                return null;
+
+                throw;
             }
         }
-        public async Task<bool> Insert(DepartamentosDTO data)
+        public async Task<bool> Insert(Monedas_PaisesDTO data)
         {
             try
             {
-                await _Context.Departamentos.AddAsync(data.ToDepartamentosDomain());
+                await _Context.MonedaPais.AddAsync(data.ToMonedas_PaisesDomain());
                 await _Context.SaveChangesAsync();
                 return true;
             }
@@ -46,11 +47,11 @@ namespace SIVAG_BACKEND.Services
             }
         }
 
-        public async Task<bool> Update(DepartamentosDTO data)
+        public async Task<bool> Update(Monedas_PaisesDTO data)
         {
             try
             {
-                _Context.Entry(data.ToDepartamentosDomain()).State = EntityState.Modified;
+                _Context.Entry(data.ToMonedas_PaisesDomain()).State = EntityState.Modified;
                 await _Context.SaveChangesAsync();
                 return true;
             }
@@ -64,10 +65,10 @@ namespace SIVAG_BACKEND.Services
         {
             try
             {
-                var Departamentos = await this._Context.Departamentos.FindAsync(id);
-                Departamentos.Estado = !Departamentos.Estado;
+                var MonedasPaises = await this._Context.MonedaPais.FindAsync(id);
+                MonedasPaises.Estado = !MonedasPaises.Estado;
 
-                _Context.Entry(Departamentos).State = EntityState.Modified;
+                _Context.Entry(MonedasPaises).State = EntityState.Modified;
                 await _Context.SaveChangesAsync();
                 return true;
             }
@@ -77,12 +78,12 @@ namespace SIVAG_BACKEND.Services
             }
         }
 
-        public async Task<List<DepartamentosDTO>> GetDepartamentosActivos(int Pais)
+        public async Task<List<Monedas_PaisesDTO>> GetMonedas_PaisesActivos(int Pais)
         {
             try
             {
-                var Departamentos = await this._Context.Departamentos.Where(x => x.ID_Pais == Pais && x.Estado == false).ToListAsync();
-                var Res = Departamentos.Select(DepartamentosMapper.ToDepartamentosDTO).ToList();
+                var MonedasPaises = await this._Context.MonedaPais.Where(x => x.ID_Pais== Pais && x.Estado == false).ToListAsync();
+                var Res = MonedasPaises.Select(Monedas_PaisesMapper.ToMonedas_PaisesDTO).ToList();
                 return Res;
             }
             catch (Exception)
