@@ -13,7 +13,20 @@ namespace SIVAG_BACKEND.Services
         {
             _Context = context;
         }
+        public async Task<List<Formas_PagoDTO>> GetFormasPagosActivos()
+        {
+            try
+            {
+                var FormasPago = await this._Context.FormasPago.Where(x => x.Estado == false).ToListAsync();
+                var Res = FormasPago.Select(Formas_PagoMapper.ToFormas_PagoDTO).ToList();
+                return Res;
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+        }
         public async Task<List<Formas_PagoDTO>> GetAll()
         {
             try

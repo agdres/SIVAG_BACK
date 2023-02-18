@@ -4,6 +4,8 @@ using SIVAG_BACKEND.Interfaces;
 using SIVAG_BACKEND.Models.API_Response;
 using SIVAG_BACKEND.Models;
 using SIVAG_BACKEND.Models.Enums;
+using Microsoft.AspNetCore.SignalR;
+using SIVAG_BACKEND.Hubs;
 
 namespace SIVAG_BACKEND.Controllers
 {
@@ -12,9 +14,30 @@ namespace SIVAG_BACKEND.Controllers
     public class Medios_PagoController : ControllerBase
     {
         private readonly IMedios_Pago _MediosPago;
-        public Medios_PagoController(IMedios_Pago mediosPago)
+        private readonly IHubContext<Hub_Generales> _HubGenerales;
+
+        public Medios_PagoController
+        (
+            IMedios_Pago mediosPago,
+            IHubContext<Hub_Generales> hubGenerales
+        )
         {
             _MediosPago = mediosPago;
+            _HubGenerales = hubGenerales;
+        }
+
+        private async void GetMedios_Pago_Hub()
+        {
+            try
+            {
+                var Res = await this._MediosPago.GetFormasPagosActivos();
+                await this._HubGenerales.Clients.All.SendAsync("GetMedios_Pago", Res);
+
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         [HttpGet]
@@ -44,7 +67,10 @@ namespace SIVAG_BACKEND.Controllers
             try
             {
                 var Res = await this._MediosPago.Insert(data);
-
+                if (Res)
+                {
+                    GetMedios_Pago_Hub();
+                }
                 return Ok(new API_Resp<bool>
                 {
                     data = Res,
@@ -65,7 +91,10 @@ namespace SIVAG_BACKEND.Controllers
             try
             {
                 var Res = await this._MediosPago.Update(data);
-
+                if (Res)
+                {
+                    GetMedios_Pago_Hub();
+                }
                 return Ok(new API_Resp<bool>
                 {
                     data = Res,
@@ -87,7 +116,10 @@ namespace SIVAG_BACKEND.Controllers
             try
             {
                 var Res = await this._MediosPago.ChangeEstatus(MedioPago);
-
+                if (Res)
+                {
+                    GetMedios_Pago_Hub();
+                }
                 return Ok(new API_Resp<bool>
                 {
                     data = Res,

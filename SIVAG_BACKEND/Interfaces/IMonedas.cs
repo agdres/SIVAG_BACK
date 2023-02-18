@@ -5,5 +5,6 @@ namespace SIVAG_BACKEND.Interfaces
 {
     public interface IMonedas : IEntityRep<MonedasDTO>
     {
+        Task<List<MonedasDTO>> GetMonedasActivos();
     }
 }

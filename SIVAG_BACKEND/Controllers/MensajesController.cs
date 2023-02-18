@@ -6,6 +6,8 @@ using SIVAG_BACKEND.Models;
 using SIVAG_BACKEND.Core.Domain;
 using SIVAG_BACKEND.Models.Enums;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.SignalR;
+using SIVAG_BACKEND.Hubs;
 
 namespace SIVAG_BACKEND.Controllers
 {
@@ -14,10 +16,26 @@ namespace SIVAG_BACKEND.Controllers
     public class MensajesController : ControllerBase
     {
         private IMensajes _Msj;
+        private IHubContext<Hub_Generales> _HubGenerales;
 
-        public MensajesController(IMensajes msj)
+        public MensajesController(IMensajes msj, IHubContext<Hub_Generales> hubGenerales)
         {
             _Msj = msj;
+            _HubGenerales = hubGenerales;
+        }
+
+        private async void GetMensajes_Hub()
+        {
+            try
+            {
+                var Res = await this._Msj.GetMensajeAlert();
+                await this._HubGenerales.Clients.All.SendAsync("GetMensajes", Res);
+
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         [HttpGet]
@@ -47,7 +65,10 @@ namespace SIVAG_BACKEND.Controllers
             try
             {
                 var Res = await this._Msj.Insert(data);
-
+                if (Res)
+                {
+                    GetMensajes_Hub();
+                }
                 return Ok(new API_Resp<bool>
                 {
                     data = Res,
@@ -68,7 +89,10 @@ namespace SIVAG_BACKEND.Controllers
             try
             {
                 var Res = await this._Msj.Update(data);
-
+                if (Res)
+                {
+                    GetMensajes_Hub();
+                }
                 return Ok(new API_Resp<bool>
                 {
                     data = Res,
@@ -90,7 +114,10 @@ namespace SIVAG_BACKEND.Controllers
             try
             {
                 var Res = await this._Msj.ChangeEstatus(Mensaje);
-
+                if (Res)
+                {
+                    GetMensajes_Hub();
+                }
                 return Ok(new API_Resp<bool>
                 {
                     data = Res,

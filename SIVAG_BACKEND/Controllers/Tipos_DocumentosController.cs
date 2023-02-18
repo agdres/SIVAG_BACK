@@ -34,7 +34,7 @@ namespace SIVAG_BACKEND.Controllers
         {
             try
             {
-                var Res = await this._TipDoc.GetAll();
+                var Res = await this._TipDoc.GetTipDocActivos();
                 await this._HubGenerales.Clients.All.SendAsync("GetTipos_Documentos", Res);
 
             }

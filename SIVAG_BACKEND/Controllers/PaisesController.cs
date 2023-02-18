@@ -4,6 +4,8 @@ using SIVAG_BACKEND.Interfaces;
 using SIVAG_BACKEND.Models.API_Response;
 using SIVAG_BACKEND.Models.Enums;
 using SIVAG_BACKEND.Models;
+using Microsoft.AspNetCore.SignalR;
+using SIVAG_BACKEND.Hubs;
 
 namespace SIVAG_BACKEND.Controllers
 {
@@ -12,9 +14,26 @@ namespace SIVAG_BACKEND.Controllers
     public class PaisesController : ControllerBase
     {
         private IPaises _Paises;
-        public PaisesController(IPaises paises)
+        private IHubContext<Hub_Generales> _HubGenerales;
+
+        public PaisesController(IPaises paises,IHubContext<Hub_Generales> hubGenerales)
         {
             _Paises = paises;
+            _HubGenerales = hubGenerales;
+        }
+
+        private async void GetPaises_Hub()
+        {
+            try
+            {
+                var Res = await this._Paises.GetPaisesActivos();
+                await this._HubGenerales.Clients.All.SendAsync("GetPaises", Res);
+
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         [HttpGet]
@@ -23,7 +42,7 @@ namespace SIVAG_BACKEND.Controllers
             try
             {
                 var Res = await this._Paises.GetAll();
-
+                
                 return Ok(new API_Resp<List<PaisesDTO>>
                 {
                     data = Res,
@@ -45,7 +64,10 @@ namespace SIVAG_BACKEND.Controllers
             try
             {
                 var Res = await this._Paises.Insert(data);
-
+                if (Res)
+                {
+                    GetPaises_Hub();
+                }
                 return Ok(new API_Resp<bool>
                 {
                     data = Res,
@@ -66,7 +88,10 @@ namespace SIVAG_BACKEND.Controllers
             try
             {
                 var Res = await this._Paises.Update(data);
-
+                if (Res)
+                {
+                    GetPaises_Hub();
+                }
                 return Ok(new API_Resp<bool>
                 {
                     data = Res,
@@ -88,7 +113,10 @@ namespace SIVAG_BACKEND.Controllers
             try
             {
                 var Res = await this._Paises.ChangeEstatus(Pais);
-
+                if (Res)
+                {
+                    GetPaises_Hub();
+                }
                 return Ok(new API_Resp<bool>
                 {
                     data = Res,

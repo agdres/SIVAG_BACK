@@ -14,6 +14,21 @@ namespace SIVAG_BACKEND.Services
             _Context = context;
         }
 
+        public async Task<List<MonedasDTO>> GetMonedasActivos()
+        {
+            try
+            {
+                var Monedas = await this._Context.Monedas.Where(x => x.Estado == false).ToListAsync();
+                var Res = Monedas.Select(MonedasMapper.ToMonedasDTO).ToList();
+                return Res;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public async Task<List<MonedasDTO>> GetAll()
         {
             try

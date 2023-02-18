@@ -4,6 +4,8 @@ using SIVAG_BACKEND.Interfaces;
 using SIVAG_BACKEND.Models.API_Response;
 using SIVAG_BACKEND.Models.Enums;
 using SIVAG_BACKEND.Models;
+using Microsoft.AspNetCore.SignalR;
+using SIVAG_BACKEND.Hubs;
 
 namespace SIVAG_BACKEND.Controllers
 {
@@ -12,9 +14,30 @@ namespace SIVAG_BACKEND.Controllers
     public class MonedasController : ControllerBase
     {
         private IMonedas _Monedas;
-        public MonedasController(IMonedas monedas)
+        private readonly IHubContext<Hub_Generales> _HubGenerales;
+
+        public MonedasController
+        (
+            IMonedas monedas,
+            IHubContext<Hub_Generales> hubGenerales
+        )
         {
             _Monedas = monedas;
+            _HubGenerales = hubGenerales;
+        }
+
+        private async void GetMonedas_Hub()
+        {
+            try
+            {
+                var Res = await this._Monedas.GetMonedasActivos();
+                await this._HubGenerales.Clients.All.SendAsync("GetMonedas", Res);
+
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         [HttpGet]
@@ -45,7 +68,10 @@ namespace SIVAG_BACKEND.Controllers
             try
             {
                 var Res = await this._Monedas.Insert(data);
-
+                if (Res)
+                {
+                    GetMonedas_Hub();
+                }
                 return Ok(new API_Resp<bool>
                 {
                     data = Res,
@@ -66,7 +92,10 @@ namespace SIVAG_BACKEND.Controllers
             try
             {
                 var Res = await this._Monedas.Update(data);
-
+                if (Res)
+                {
+                    GetMonedas_Hub();
+                }
                 return Ok(new API_Resp<bool>
                 {
                     data = Res,
@@ -88,7 +117,10 @@ namespace SIVAG_BACKEND.Controllers
             try
             {
                 var Res = await this._Monedas.ChangeEstatus(Moneda);
-
+                if (Res)
+                {
+                    GetMonedas_Hub();
+                }
                 return Ok(new API_Resp<bool>
                 {
                     data = Res,

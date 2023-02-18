@@ -4,6 +4,9 @@ using SIVAG_BACKEND.Interfaces;
 using SIVAG_BACKEND.Models.API_Response;
 using SIVAG_BACKEND.Models;
 using SIVAG_BACKEND.Models.Enums;
+using SIVAG_BACKEND.Mappers;
+using Microsoft.AspNetCore.SignalR;
+using SIVAG_BACKEND.Hubs;
 
 namespace SIVAG_BACKEND.Controllers
 {
@@ -12,9 +15,28 @@ namespace SIVAG_BACKEND.Controllers
     public class Formas_PagoController : ControllerBase
     {
         private readonly IFormas_Pago _FormasPago;
-        public Formas_PagoController(IFormas_Pago formasPago)
+        private readonly IHubContext<Hub_Generales> _HubGenerales;
+
+        public Formas_PagoController
+        (
+            IFormas_Pago formasPago,
+            IHubContext<Hub_Generales> hubGenerales
+        )
         {
             _FormasPago = formasPago;
+            _HubGenerales = hubGenerales;
+        }
+        private async void GetFormas_Pago_Hub()
+        {
+            try
+            {
+                var Res = await this._FormasPago.GetFormasPagosActivos();
+                await this._HubGenerales.Clients.All.SendAsync("GetFormas_Pago", Res);
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         [HttpGet]
@@ -44,6 +66,10 @@ namespace SIVAG_BACKEND.Controllers
             try
             {
                 var Res = await this._FormasPago.Insert(data);
+                if (Res)
+                {
+                    GetFormas_Pago_Hub();
+                }
                 return Ok(new API_Resp<bool>
                 {
                     data = Res,
@@ -65,7 +91,10 @@ namespace SIVAG_BACKEND.Controllers
             try
             {
                 var Res = await this._FormasPago.Update(data);
-
+                if (Res)
+                {
+                    GetFormas_Pago_Hub();
+                }
                 return Ok(new API_Resp<bool>
                 {
                     data = Res,
@@ -87,7 +116,10 @@ namespace SIVAG_BACKEND.Controllers
             try
             {
                 var Res = await this._FormasPago.ChangeEstatus(FormaPago);
-
+                if (Res)
+                {
+                    GetFormas_Pago_Hub();
+                }
                 return Ok(new API_Resp<bool>
                 {
                     data = Res,

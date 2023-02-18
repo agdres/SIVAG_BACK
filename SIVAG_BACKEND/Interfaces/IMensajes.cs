@@ -5,5 +5,6 @@ namespace SIVAG_BACKEND.Interfaces
 {
     public interface IMensajes : IEntityRep<MensajesDomain>
     {
+        Task<List<MensajesDomain>> GetMensajeAlert();
     }
 }

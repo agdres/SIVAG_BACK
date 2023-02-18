@@ -2,6 +2,7 @@
 using SIVAG_BACKEND.Core.Context;
 using SIVAG_BACKEND.Core.Domain;
 using SIVAG_BACKEND.Interfaces;
+using SIVAG_BACKEND.Models.API_Response;
 
 namespace SIVAG_BACKEND.Services
 {
@@ -12,6 +13,22 @@ namespace SIVAG_BACKEND.Services
         {
             _Context = context;
         }
+
+
+        public async Task<List<MensajesDomain>> GetMensajeAlert()
+        {
+            try
+            {
+                var Mensaje = await this._Context.Mensajes.Where(x => x.Estado == true).ToListAsync();
+                return Mensaje;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public async Task<List<MensajesDomain>> GetAll()
         {
             try

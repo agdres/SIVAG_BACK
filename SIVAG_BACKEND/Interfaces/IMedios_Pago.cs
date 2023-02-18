@@ -5,5 +5,6 @@ namespace SIVAG_BACKEND.Interfaces
 {
     public interface IMedios_Pago : IEntityRep<Medios_PagoDTO>
     {
+        Task<List<Medios_PagoDTO>> GetFormasPagosActivos();
     }
 }

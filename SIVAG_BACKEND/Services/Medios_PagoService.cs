@@ -14,6 +14,21 @@ namespace SIVAG_BACKEND.Services
             _Context = context;
         }
 
+        public async Task<List<Medios_PagoDTO>> GetFormasPagosActivos()
+        {
+            try
+            {
+                var MediosPago = await this._Context.MediosPago.Where(x => x.Estado == false).ToListAsync();
+                var Res = MediosPago.Select(Medios_PagoMapper.ToMedios_PagoDTO).ToList();
+                return Res;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        } 
+
         public async Task<List<Medios_PagoDTO>> GetAll()
         {
             try
