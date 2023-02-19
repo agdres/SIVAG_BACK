@@ -23,6 +23,8 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
 
             builder.Property(e => e.ID_Sucursal).HasColumnName("ID_Sucursal");
 
+            builder.Property(e => e.Compartido);
+
             builder.Property(e => e.Estado);
 
             builder.HasOne(d => d.IdBodegaNavigation)

@@ -14,14 +14,9 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
                    .HasName("PK__Usuarios__E3237CF68BFD50B0");
 
 
-            builder.Property(e => e.Clave)
-                .HasMaxLength(250)
-                .IsUnicode(false);
+            builder.Property(e => e.Clave);
 
-            builder.Property(e => e.Clave_Temporal)
-                .HasMaxLength(250)
-                .IsUnicode(false)
-                .HasColumnName("Clave_Temporal");
+            builder.Property(e => e.Clave_Temporal);
 
             builder.Property(e => e.Fecha_Creacion)
                 .HasMaxLength(20)
@@ -32,10 +27,7 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
 
             builder.Property(e => e.ID_Rol).HasColumnName("ID_Rol");
 
-            builder.Property(e => e.Nombre_Usuario)
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .HasColumnName("Nombre_Usuario");
+            builder.Property(e => e.Nombre_Usuario);
 
             builder.Property(e => e.Tiempo_Recupera).HasColumnName("Tiempo_Recupera");
 
