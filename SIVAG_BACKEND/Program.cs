@@ -35,6 +35,7 @@ builder.Services.AddScoped<IMunicipios,MunicipiosServices>();
 builder.Services.AddScoped<IPaises_Idiomas,Paises_IdiomasServices>();
 builder.Services.AddScoped<IPaises,PaisesServices>();
 builder.Services.AddScoped<ITipos_Documentos, Tipos_DocumentosServices>();
+builder.Services.AddScoped<IUsuarios, UsuariosServices>();
 
 // Hubs
 builder.Services.AddScoped<Hub_Generales>();
