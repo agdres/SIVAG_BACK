@@ -9,6 +9,7 @@ using SIVAG_BACKEND.Models;
 using SIVAG_BACKEND.Models.API_Auth;
 using SIVAG_BACKEND.Mappers;
 using SIVAG_BACKEND.Utilities;
+using SIVAG_BACKEND.Utilities.Execptions;
 
 namespace SIVAG_BACKEND.Controllers
 {
@@ -63,10 +64,16 @@ namespace SIVAG_BACKEND.Controllers
                     StatusCode = (Res != false ? 200 : 400)
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                var Msj = ExceptionEntityModel.HandleException(ex, "usuario");
 
-                throw;
+                return Ok(new API_Resp<bool>
+                {
+                    data = false,
+                    Message = Msj,
+                    StatusCode = 400
+                });
             }
         }
 

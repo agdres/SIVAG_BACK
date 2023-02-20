@@ -4,6 +4,8 @@ using SIVAG_BACKEND.Interfaces;
 using SIVAG_BACKEND.Mappers;
 using SIVAG_BACKEND.Models.API_Response;
 using SIVAG_BACKEND.Utilities;
+using SIVAG_BACKEND.Utilities.Execptions;
+using System.Data;
 
 namespace SIVAG_BACKEND.Services
 {
@@ -53,9 +55,9 @@ namespace SIVAG_BACKEND.Services
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
+                throw ex;
             }
         }
 

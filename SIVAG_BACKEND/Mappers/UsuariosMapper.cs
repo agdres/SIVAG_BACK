@@ -24,6 +24,7 @@ namespace SIVAG_BACKEND.Mappers
             {
                 Usuario = usuarios.Usuario,
                 ID_Rol = usuarios.ID_Rol,
+                Nombre_Usuario = usuarios.Nombre_Usuario,
                 Clave = usuarios.Clave,
                 Principal = usuarios.Principal,
                 Estado = usuarios.Estado

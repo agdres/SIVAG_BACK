@@ -13,6 +13,7 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
             builder.HasKey(e => e.Usuario)
                    .HasName("PK__Usuarios__E3237CF68BFD50B0");
 
+            builder.HasIndex(e => e.Nombre_Usuario).IsUnique();
 
             builder.Property(e => e.Clave);
 
