@@ -23,6 +23,7 @@ namespace SIVAG_BACKEND.Mappers
             return new UsuariosDTO
             {
                 Usuario = usuarios.Usuario,
+                ID_Empleado = usuarios.ID_Empleado,
                 ID_Rol = usuarios.ID_Rol,
                 Nombre_Usuario = usuarios.Nombre_Usuario,
                 Clave = usuarios.Clave,

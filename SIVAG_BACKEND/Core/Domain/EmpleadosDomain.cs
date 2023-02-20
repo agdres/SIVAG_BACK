@@ -16,10 +16,10 @@
         }
 
         public int Empleado { get; set; }
-        public int ID_Sucursal { get; set; }
+        public int? ID_Sucursal { get; set; }
         public int ID_Municipio_Nacimiento { get; set; }
         public string? Fecha_Nacimiento { get; set; }
-        public int ID_Bodega { get; set; }
+        public int? ID_Bodega { get; set; }
         public int ID_Genero { get; set; }
         public int ID_Tipo_Documento { get; set; }
         public string? Numero_Documento { get; set; }

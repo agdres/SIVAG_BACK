@@ -4,11 +4,13 @@ using SIVAG_BACKEND.Interfaces;
 using SIVAG_BACKEND.Models.API_Response;
 using SIVAG_BACKEND.Models;
 using SIVAG_BACKEND.Models.Enums;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SIVAG_BACKEND.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BodegasController : ControllerBase
     {
         private IBodegas _Bodegas;

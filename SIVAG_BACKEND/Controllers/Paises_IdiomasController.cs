@@ -6,11 +6,13 @@ using SIVAG_BACKEND.Interfaces;
 using SIVAG_BACKEND.Models.API_Response;
 using SIVAG_BACKEND.Models.Enums;
 using SIVAG_BACKEND.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SIVAG_BACKEND.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class Paises_IdiomasController : ControllerBase
     {
         private readonly IPaises_Idiomas _PaisesIdiomas;

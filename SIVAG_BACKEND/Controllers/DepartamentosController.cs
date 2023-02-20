@@ -7,11 +7,13 @@ using SIVAG_BACKEND.Models.Enums;
 using Microsoft.AspNetCore.SignalR;
 using SIVAG_BACKEND.Hubs;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SIVAG_BACKEND.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class DepartamentosController : ControllerBase
     {
         private readonly IDepartamentos _Departamentos;

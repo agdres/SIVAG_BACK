@@ -6,11 +6,13 @@ using SIVAG_BACKEND.Models.Enums;
 using SIVAG_BACKEND.Models;
 using Microsoft.AspNetCore.SignalR;
 using SIVAG_BACKEND.Hubs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SIVAG_BACKEND.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PaisesController : ControllerBase
     {
         private IPaises _Paises;

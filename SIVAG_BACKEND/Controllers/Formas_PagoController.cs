@@ -7,11 +7,13 @@ using SIVAG_BACKEND.Models.Enums;
 using SIVAG_BACKEND.Mappers;
 using Microsoft.AspNetCore.SignalR;
 using SIVAG_BACKEND.Hubs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SIVAG_BACKEND.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class Formas_PagoController : ControllerBase
     {
         private readonly IFormas_Pago _FormasPago;

@@ -10,11 +10,13 @@ using SIVAG_BACKEND.Models.API_Auth;
 using SIVAG_BACKEND.Mappers;
 using SIVAG_BACKEND.Utilities;
 using SIVAG_BACKEND.Utilities.Execptions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SIVAG_BACKEND.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsuariosController : ControllerBase
     {
         private readonly IUsuarios _Usuarios;

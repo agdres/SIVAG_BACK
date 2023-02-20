@@ -6,11 +6,13 @@ using SIVAG_BACKEND.Models;
 using SIVAG_BACKEND.Models.Enums;
 using Microsoft.AspNetCore.SignalR;
 using SIVAG_BACKEND.Hubs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SIVAG_BACKEND.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class Medios_PagoController : ControllerBase
     {
         private readonly IMedios_Pago _MediosPago;

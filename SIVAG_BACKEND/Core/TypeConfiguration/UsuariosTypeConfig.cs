@@ -10,8 +10,7 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
         {
             builder.ToTable("Usuarios");
 
-            builder.HasKey(e => e.Usuario)
-                   .HasName("PK__Usuarios__E3237CF68BFD50B0");
+            builder.HasKey(e => e.Usuario);
 
             builder.HasIndex(e => e.Nombre_Usuario).IsUnique();
 
@@ -38,13 +37,11 @@ namespace SIVAG_BACKEND.Core.TypeConfiguration
 
             builder.HasOne(d => d.IdEmpleadoNavigation)
                 .WithMany(p => p.Usuarios)
-                .HasForeignKey(d => d.ID_Empleado)
-                .HasConstraintName("FK__Usuarios__Estado__0E6E26BF");
+                .HasForeignKey(d => d.ID_Empleado);
 
             builder.HasOne(d => d.IdRolNavigation)
                 .WithMany(p => p.Usuarios)
-                .HasForeignKey(d => d.ID_Rol)
-                .HasConstraintName("FK__Usuarios__ID_Rol__0F624AF8");
+                .HasForeignKey(d => d.ID_Rol);
         }
     }
 }
