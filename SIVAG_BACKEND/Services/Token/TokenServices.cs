@@ -59,10 +59,13 @@ namespace SIVAG_BACKEND.Services.Token
                                                   select perm
                                                   ).ToListAsync();
 
+                            var imgSucur = await this._Context.Sucursales.Where(x=> x.Sucursal == InfoGeneral.emple.ID_Sucursal).Select(y => y.Foto).FirstOrDefaultAsync();
+
                             LoginDTO model = new LoginDTO();
+                            model.profile = (imgSucur != null ? Convert.ToBase64String(imgSucur) : "");
                             model.isUserx_res = new List<string>()
                             {
-                                "N:"+InfoGeneral.emple.Primer_Apellido,// N - Nombre
+                                "N:"+ InfoGeneral.emple.Primer_Nombre+" "+InfoGeneral.emple.Primer_Apellido,// N - Nombre
                                 "S:"+InfoGeneral.emple.ID_Sucursal,// S - Sucursal
                                 "B:"+InfoGeneral.emple.ID_Bodega,// B - Bodega
                                 "E:"+InfoGeneral.emple.Empleado,// E - Empleado
@@ -89,7 +92,7 @@ namespace SIVAG_BACKEND.Services.Token
                             });
 
                             Res.ms = null;
-                            Res.token = GenerarTokenModel.GenerarJwtToken( _AppSettings.Key.Substring(0,_AppSettings.Key.Length-82), model);
+                            Res.token = GenerarTokenModel.GenerarJwtToken( _AppSettings.Key, model);
                         }
                         else
                         {

@@ -4,6 +4,7 @@
     {
         public List<string> isUserx_res { get; set; }
         public List<LoginPermisos> isUsery_m { get; set; }
+        public string? profile{ get; set; }
     }
     public class LoginPermisos
     {
